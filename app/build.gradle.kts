@@ -1,15 +1,15 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.application")
 }
 
 android {
     namespace = "es.ucm.fdi.viva_tu_pueblo"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "es.ucm.fdi.viva_tu_pueblo"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 

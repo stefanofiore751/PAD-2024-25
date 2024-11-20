@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_news"
+        android:icon="@drawable/ic_news"
+        android:title="Noticias" />
+
+    <item
+        android:id="@+id/nav_incidents"
+        android:icon="@drawable/ic_incidents"
+        android:title="Incidencias" />
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="Inicio" />
+
+    <item
+        android:id="@+id/nav_routes"
+        android:icon="@drawable/ic_routes"
+        android:title="Rutas" />
+
+    <item
+        android:id="@+id/nav_events"
+        android:icon="@drawable/ic_events"
+        android:title="Eventos" />
+
+</menu>

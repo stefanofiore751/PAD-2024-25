@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tema personalizado para el DatePickerDialog -->
+    <style name="CustomDatePickerDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:colorAccent">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:background">@color/dark_moss_green</item>
+        <!--<item name="android:datePickerStyle">@style/CustomDatePicker</item>-->
+    </style>
+
+    <!-- Estilo para los días de la semana -->
+    <style name="WeekDayTextAppearance" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>
