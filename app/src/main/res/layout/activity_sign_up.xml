@@ -22,7 +22,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/log_in"
+        android:text="@string/sign_up"
         android:textSize="24sp"
         android:textColor="@color/black"
         android:fontFamily="sans-serif-medium"
@@ -53,48 +53,26 @@
         android:background="@color/grey"
         android:fontFamily="sans-serif" />
 
-    <!-- Forgot Password Link -->
-    <TextView
-        android:id="@+id/tvForgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/forgot_password"
-        android:textColor="@color/grey"
-        android:textSize="14sp"
-        android:layout_marginTop="8dp"
-        android:layout_gravity="end" />
-
-    <!-- Login Button -->
+    <!-- Sign Up Button -->
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/selected_color"
-        android:text="@string/log_in"
+        android:text="@string/sign_up"
         android:textColor="@color/white"
         android:layout_marginTop="24dp"
         android:padding="12dp" />
 
-
-
-    <!-- Or Divider -->
+    <!-- Login Redirect Link -->
     <TextView
-        android:id="@+id/tvDivider"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/or"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:layout_marginTop="16dp" />
-
-    <!-- Sign Up Link -->
-    <TextView
-        android:id="@+id/tvSignUp"
+        android:id="@+id/tvLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sign_up"
+        android:text="@string/already_have_account"
         android:textColor="@color/selected_color"
         android:textSize="14sp"
         android:layout_gravity="center"
         android:layout_marginTop="8dp" />
+
 </LinearLayout>
