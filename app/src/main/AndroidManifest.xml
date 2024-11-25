@@ -15,7 +15,10 @@
 
         <activity
             android:name="viva_tu_pueblo.MainActivity"
-            android:exported="true">
+            android:exported="true"/>
+
+        <activity android:name="viva_tu_pueblo.LoginActivity2"
+            android:exported="true">>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.ImageButton;
 
 import es.ucm.fdi.viva_tu_pueblo.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -70,18 +73,26 @@ public class Events_Fragment extends Fragment {
         // Botón del calendario
         ImageButton btnCalendar = rootView.findViewById(R.id.btnCalendar);
 
-        // Configurar el listener para el botón
+        // Configurar el RecyclerView
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerViewEvents);
+        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2)); // Dos columnas
+        recyclerView.setHasFixedSize(true);
+
+        // Configurar el adapter
+        List<Event> eventList = getDummyEvents(); // Generar o cargar la lista de eventos
+        EventAdapter adapter = new EventAdapter(eventList);
+        recyclerView.setAdapter(adapter);
+
+        // Listener del botón calendario
         btnCalendar.setOnClickListener(v -> {
-            // Obtener la fecha actual
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-            // Crear y mostrar el DatePickerDialog
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     requireContext(),
-                    R.style.CustomDatePickerDialog, // Aplica el estilo aquí
+                    R.style.CustomDatePickerDialog,
                     (view, selectedYear, selectedMonth, selectedDay) -> {
                         // Acción al seleccionar la fecha
                         String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
@@ -94,4 +105,12 @@ public class Events_Fragment extends Fragment {
         return rootView;
     }
 
+    // Generar una lista de eventos de prueba
+    private List<Event> getDummyEvents() {
+        List<Event> events = new ArrayList<>();
+        events.add(new Event("Evento 1", "25€", "Madrid", "25/11/2024"));
+        events.add(new Event("Evento 2", "Gratis", "Barcelona", "26/11/2024"));
+        // Agrega más eventos según sea necesario
+        return events;
+    }
 }
