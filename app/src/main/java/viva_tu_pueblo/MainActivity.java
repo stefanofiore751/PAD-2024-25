@@ -1,12 +1,12 @@
 package viva_tu_pueblo;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -32,37 +32,42 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navBarBottom = findViewById(R.id.bottomNavigationView);
         navBarBottom.setSelectedItemId(R.id.nav_home);
-        navBarBottom.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navBarBottom.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
         loadFragment(homeFragment);
+
+        // Set up login button click listener
+        ImageButton btnGoToLogin = findViewById(R.id.btnGoToLogin);
+        btnGoToLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        });
     }
 
-    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.nav_home:
-                            loadFragment(homeFragment);
-                            return true;
 
-                        case R.id.nav_news:
-                            loadFragment(noticesFragment);
-                            return true;
+    private final BottomNavigationView.OnItemSelectedListener mOnNavigationItemSelectedListener =
+            item -> {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        loadFragment(homeFragment);
+                        return true;
 
-                        case R.id.nav_incidents:
-                            loadFragment(incidentsFragment);
-                            return true;
+                    case R.id.nav_news:
+                        loadFragment(noticesFragment);
+                        return true;
 
-                        case R.id.nav_routes:
-                            loadFragment(routesFragment);
-                            return true;
+                    case R.id.nav_incidents:
+                        loadFragment(incidentsFragment);
+                        return true;
 
-                        case R.id.nav_events:
-                            loadFragment(eventsFragment);
-                            return true;
-                    }
-                    return false;
+                    case R.id.nav_routes:
+                        loadFragment(routesFragment);
+                        return true;
+
+                    case R.id.nav_events:
+                        loadFragment(eventsFragment);
+                        return true;
                 }
+                return false;
             };
 
     private void loadFragment(Fragment fragment) {

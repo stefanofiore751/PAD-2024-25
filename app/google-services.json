@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "627228493878",
+    "project_id": "vive-tu-pueblo",
+    "storage_bucket": "vive-tu-pueblo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627228493878:android:b1ac4dfb3ee71895673097",
+        "android_client_info": {
+          "package_name": "es.ucm.fdi.viva_tu_pueblo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoOSB51auuBdTLn4PN6g8XEYtuTNC-al8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

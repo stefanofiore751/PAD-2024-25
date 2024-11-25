@@ -25,6 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="viva_tu_pueblo.LoginActivity" />
+        <activity android:name="viva_tu_pueblo.SignUpActivity" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="viva_tu_pueblo.fileprovider"

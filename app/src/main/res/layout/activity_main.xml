@@ -6,6 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <!-- Icon button in the upper-right corner -->
+    <ImageButton
+        android:id="@+id/btnGoToLogin"
+        android:layout_width="48dp"
+        android:layout_height="51dp"
+        android:layout_margin="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/login_button"
+        android:padding="8dp"
+        android:src="@drawable/logo_improvisado"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <!-- Contenido principal de la pantalla -->
     <FrameLayout
         android:id="@+id/Frame_Layout_NavView"
