@@ -6,62 +6,79 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardElevation="10dp">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <!-- Imagen ocupa la mitad del CardView -->
-        <ImageView
-            android:id="@+id/ivImagenEvento"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_image" />
-
-        <!-- Contenido del evento -->
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:padding="8dp">
+            <!--android:background="@drawable/bg_card_gradient"-->
 
-            <TextView
-                android:id="@+id/tvTituloEvento"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="Título del Evento"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvPrecioEvento"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="Precio: 10€"
-                android:textSize="14sp" />
+                <ImageView
+                    android:id="@+id/ivImagenEvento"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_image" />
 
-            <TextView
-                android:id="@+id/tvUbicacionEvento"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ubicación: Plaza Mayor"
-                android:textSize="14sp" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvFechaHoraEvento"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Día: 25/11/2024 - Hora: 18:00"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvTituloEvento"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="Título del Evento"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvPrecioEvento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:text="Precio: 10€"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvUbicacionEvento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ubicación: Plaza Mayor"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvFechaHoraEvento"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Día: 25/11/2024 - Hora: 18:00"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                    <!--Molaria poner un icono de hora y al lado la hora-->
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
 </androidx.cardview.widget.CardView>
+

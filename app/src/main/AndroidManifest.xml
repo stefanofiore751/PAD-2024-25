@@ -17,15 +17,15 @@
             android:name="viva_tu_pueblo.MainActivity"
             android:exported="true"/>
 
-        <activity android:name="viva_tu_pueblo.LoginActivity2"
-            android:exported="true">>
+        <activity android:name="viva_tu_pueblo.LoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="viva_tu_pueblo.LoginActivity" />
+        <!--<activity android:name="viva_tu_pueblo.LoginActivity" />-->
         <activity android:name="viva_tu_pueblo.SignUpActivity" />
         <provider
             android:name="androidx.core.content.FileProvider"

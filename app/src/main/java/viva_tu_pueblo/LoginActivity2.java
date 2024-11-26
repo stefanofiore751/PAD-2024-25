@@ -23,7 +23,7 @@ public class LoginActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_login_prueba);
 
         // Referencias a los elementos del layout
-        ImageView logoImage = findViewById(R.id.logo_image);
+        /*ImageView logoImage = findViewById(R.id.logo_image);
         EditText usernameField = findViewById(R.id.username_field);
         EditText passwordField = findViewById(R.id.password_field);
         Button loginButton = findViewById(R.id.login_button);
@@ -51,7 +51,7 @@ public class LoginActivity2 extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
     }
 
 }

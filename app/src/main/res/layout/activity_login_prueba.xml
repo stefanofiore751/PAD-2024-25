@@ -31,7 +31,7 @@
         android:textColorHint="@color/white"
         android:padding="10dp"
         android:backgroundTint="@color/white"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/logo_image"
         app:layout_constraintStart_toStartOf="@+id/guidelineStartLogin"
@@ -47,7 +47,7 @@
         android:padding="10dp"
         android:inputType="textPassword"
         android:backgroundTint="@color/white"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@id/username_field"
         app:layout_constraintStart_toStartOf="@+id/guidelineStartLogin"
@@ -91,7 +91,7 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineBottomLogin" />
 
     <TextView
-        android:id="@+id/textDescriptionLogi"
+        android:id="@+id/tvSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="23dp"
@@ -99,9 +99,23 @@
         android:layout_marginTop="40dp"
         android:text="¡Únete a uno!"
         android:textColor="@color/white"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEndLogin"
         app:layout_constraintStart_toStartOf="@+id/guidelineStartLogin"
         app:layout_constraintTop_toTopOf="@+id/textViewDescription" />
+
+    <TextView
+        android:id="@+id/tvForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Has olvidado tu contraseña?"
+        android:textColor="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndLogin"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartLogin"
+        app:layout_constraintTop_toTopOf="@+id/guidelineBottomLogin" />
 
     <!-- Guías -->
     <androidx.constraintlayout.widget.Guideline
@@ -116,7 +130,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_begin="366dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTopLogin"

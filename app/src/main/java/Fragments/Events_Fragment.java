@@ -1,116 +1,106 @@
 package Fragments;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Toast;
 
-import es.ucm.fdi.viva_tu_pueblo.R;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Events_Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import Adapters.Events_Adapter;
+import Modelos.Event;
+import es.ucm.fdi.viva_tu_pueblo.R;
+
 public class Events_Fragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView recyclerView;
+    private FirebaseFirestore db;
+    private Events_Adapter adapter;
+    private List<Event> eventList;
 
     public Events_Fragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Events_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Events_Fragment newInstance(String param1, String param2) {
-        Events_Fragment fragment = new Events_Fragment();
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_events, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Inicializar vistas
+        recyclerView = view.findViewById(R.id.recyclerViewEventos);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        // Inicializar Firestore y lista de eventos
+        db = FirebaseFirestore.getInstance();
+        eventList = new ArrayList<>();
+
+        // Cargar eventos desde la base de datos
+        loadEvents();
+    }
+
+    private void loadEvents() {
+        db.collection("events")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (queryDocumentSnapshots == null || queryDocumentSnapshots.isEmpty()) {
+                        Log.w("Firestore", "No se encontraron documentos en la colección 'events'.");
+                        return;
+                    }
+                    // Vaciar la lista para evitar duplicados
+                    eventList.clear();
+
+                    // Iterar sobre los documentos recibidos
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        try {
+                            // Mapea el documento a la clase Event
+                            Event event = document.toObject(Event.class);
+                            event.setEventId(document.getId()); // Asigna el ID del documento
+                            eventList.add(event);
+                            Log.d("Firestore", "Evento cargado: " + event.getEventName());
+                        } catch (Exception e) {
+                            Log.e("Firestore", "Error al mapear el documento a un objeto Event: ", e);
+                        }
+                    }
+
+                    // Configurar adaptador con los datos cargados
+                    adapter = new Events_Adapter(eventList, this::openEventDetail);
+                    recyclerView.setAdapter(adapter);
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(getContext(), "Error al cargar eventos", Toast.LENGTH_SHORT).show()
+                );
+    }
+
+    private void openEventDetail(Event event) {
+        // Crear el fragmento de detalle y pasar los argumentos necesarios
+        EventDetail_Fragment eventDetailFragment = new EventDetail_Fragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+        args.putString("eventId", event.getEventId()); // Corregido a String
+        eventDetailFragment.setArguments(args);
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_events, container, false);
-
-        // Botón del calendario
-        ImageButton btnCalendar = rootView.findViewById(R.id.btnCalendar);
-
-        // Configurar el RecyclerView
-        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerViewEvents);
-        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2)); // Dos columnas
-        recyclerView.setHasFixedSize(true);
-
-        // Configurar el adapter
-        List<Event> eventList = getDummyEvents(); // Generar o cargar la lista de eventos
-        EventAdapter adapter = new EventAdapter(eventList);
-        recyclerView.setAdapter(adapter);
-
-        // Listener del botón calendario
-        btnCalendar.setOnClickListener(v -> {
-            Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(
-                    requireContext(),
-                    R.style.CustomDatePickerDialog,
-                    (view, selectedYear, selectedMonth, selectedDay) -> {
-                        // Acción al seleccionar la fecha
-                        String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-                    },
-                    year, month, day
-            );
-            datePickerDialog.show();
-        });
-
-        return rootView;
-    }
-
-    // Generar una lista de eventos de prueba
-    private List<Event> getDummyEvents() {
-        List<Event> events = new ArrayList<>();
-        events.add(new Event("Evento 1", "25€", "Madrid", "25/11/2024"));
-        events.add(new Event("Evento 2", "Gratis", "Barcelona", "26/11/2024"));
-        // Agrega más eventos según sea necesario
-        return events;
+        // Reemplazar el fragmento actual por el de detalles
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.Frame_Layout_NavView, eventDetailFragment)
+                .addToBackStack(null)
+                .commit();
     }
 }
