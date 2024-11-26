@@ -1,3 +1,15 @@
 <resources>
+<<<<<<< Updated upstream
     <string name="app_name">Viva_Tu_Pueblo</string>
+=======
+    <string name="app_name">defFuncionalidadNoticias</string>
+    <string name="noticias">Noticias</string>
+    <string name="inicio">Inicio</string>
+    <string name="deportes">Deportes</string>
+    <string name="salud">Salud</string>
+    <string name="ciencia">Ciencia</string>
+    <string name="entretenimiento">Entretenimiento</string>
+    <string name="tecnologia">Tecnologia</string>
+    <string name="noticia_especifica">Noticia especifica</string>
+>>>>>>> Stashed changes
 </resources>

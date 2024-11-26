@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Viva_Tu_Pueblo" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.DefFuncionalidadNoticias" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Viva_Tu_Pueblo" parent="Base.Theme.Viva_Tu_Pueblo" />
+    <style name="Theme.DefFuncionalidadNoticias" parent="Base.Theme.DefFuncionalidadNoticias" />
 </resources>

@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Viva_Tu_Pueblo"
+rootProject.name = "defFuncionalidadNoticias"
 include(":app")
  
