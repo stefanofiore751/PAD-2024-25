@@ -76,29 +76,26 @@ public class EventDetail_Fragment extends Fragment {
 
         eventRef.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
-                // Obtener los datos del evento
-                String title = documentSnapshot.getString("eventName");
-                String price = "Precio: " + documentSnapshot.getString("price");
-                String location = "Ubicación: " + documentSnapshot.getString("eventLocation");
-                String dateTime = "Fecha y Hora: " + documentSnapshot.getString("eventDate");
-                String description = documentSnapshot.getString("description");
+                String title = documentSnapshot.getString("eventName") != null ? documentSnapshot.getString("eventName") : "Sin título";
+                String price = "Precio: " + (documentSnapshot.getString("price") != null ? documentSnapshot.getString("price") : "No disponible");
+                String location = "Ubicación: " + (documentSnapshot.getString("eventLocation") != null ? documentSnapshot.getString("eventLocation") : "No disponible");
+                String dateTime = "Fecha y Hora: " + (documentSnapshot.getString("eventDate") != null ? documentSnapshot.getString("eventDate") : "No disponible");
+                String description = documentSnapshot.getString("description") != null ? documentSnapshot.getString("description") : "Sin descripción";
 
-                totalSeats = documentSnapshot.getLong("totalSeats").intValue();
-                reservedSeats = documentSnapshot.getLong("reservedSeats").intValue();
+                totalSeats = documentSnapshot.getLong("totalSeats") != null ? documentSnapshot.getLong("totalSeats").intValue() : 0;
+                reservedSeats = documentSnapshot.getLong("reservedSeats") != null ? documentSnapshot.getLong("reservedSeats").intValue() : 0;
 
-                // Mostrar los datos en la UI
+                // Actualizar la UI
                 eventTitle.setText(title);
                 eventPrice.setText(price);
                 eventLocation.setText(location);
                 eventDateTime.setText(dateTime);
                 eventDescription.setText(description);
-
-                // Aquí puedes cargar la imagen si la tienes como URL
-                // Picasso.get().load(imageUrl).into(eventImage);
             } else {
                 Toast.makeText(getContext(), "El evento no existe", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(e -> Toast.makeText(getContext(), "Error al cargar el evento", Toast.LENGTH_SHORT).show());
+
     }
 
     private void reserveSeat() {
