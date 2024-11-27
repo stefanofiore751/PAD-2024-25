@@ -1,19 +1,16 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.application")
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
-<<<<<<< Updated upstream
     namespace = "es.ucm.fdi.viva_tu_pueblo"
-=======
-    namespace = "es.ucm.fdi.deffuncionalidadnoticias"
->>>>>>> Stashed changes
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
-        applicationId = "es.ucm.fdi.deffuncionalidadnoticias"
+        applicationId = "es.ucm.fdi.viva_tu_pueblo"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -36,18 +33,17 @@ android {
 }
 
 dependencies {
-
-<<<<<<< Updated upstream
-=======
-    implementation("com.github.bumptech.glide:glide:4.15.1")
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
->>>>>>> Stashed changes
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.bom) // Firebase BoM para manejar versiones compatibles
+    implementation(libs.firebase.database)
+    implementation(libs.play.services.auth)
+    implementation(libs.credentials)
+    implementation(libs.credentials.play.services.auth)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
