@@ -10,10 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 
 import es.ucm.fdi.viva_tu_pueblo.R;
 
@@ -48,7 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         });*/
 
         btnGuest.setOnClickListener(v -> {
-            firebaseAuth.signInAnonymously()
+            showInfoGuestDialog();
+            /*firebaseAuth.signInAnonymously()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -57,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(LoginActivity.this, "Error al iniciar como invitado", Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    });*/
         });
 
         tvSignUp.setOnClickListener(v -> {
@@ -93,4 +97,32 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
+    private void showInfoGuestDialog() {
+        new AlertDialog.Builder(LoginActivity.this)
+                .setTitle("Acceso como invitado")
+                .setMessage("Al acceder como invitado, tendrás acceso limitado a las funcionalidades de la aplicación. \n¿Deseas continuar?")
+                .setIcon(R.drawable.ic_aviso)
+                .setCancelable(false) // Evita que el diálogo se cierre tocando fuera de él
+                .setPositiveButton("Sí, continuar", (dialog, which) -> {
+                    firebaseAuth.signInAnonymously()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Error al iniciar como invitado", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                })
+                .setNegativeButton("Cancelar", (dialog, which) -> {
+                    // Cierra el diálogo y regresa a la pestaña anterior
+                    dialog.dismiss();
+                })
+                .show();
+    }
+
+
 }

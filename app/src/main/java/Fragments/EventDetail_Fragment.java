@@ -137,36 +137,15 @@ public class EventDetail_Fragment extends Fragment {
     }
 
     private void reserveSeat(DocumentReference eventRef, String userEmail) {
-
         if (FirebaseAuth.getInstance().getCurrentUser() == null || FirebaseAuth.getInstance().getCurrentUser().isAnonymous()) {
             showNotLoggedInDialog();
         } else {
-            int reserved = Integer.parseInt(reservedSeats); // Plazas reservadas actualmente
-
-            if (totalSeats.equals("No hay limite de aforo") || totalSeats.isEmpty() || reserved < Integer.parseInt(totalSeats)) {
-                eventRef.update("reservedSeats", Integer.toString(reserved + 1), "users", FieldValue.arrayUnion(userEmail))
-                        .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(getContext(), "Reserva confirmada", Toast.LENGTH_SHORT).show();
-                            updateReserveButton("Cancelar Reserva", android.R.color.holo_red_dark, v -> cancelReservation(eventRef, userEmail));
-                        })
-                        .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al realizar la reserva", Toast.LENGTH_SHORT).show());
-            } else {
-                Toast.makeText(getContext(), "No quedan plazas disponibles", Toast.LENGTH_SHORT).show();
-            }
+            showReserveDialog(eventRef, userEmail);
         }
-
-
     }
 
     private void cancelReservation(DocumentReference eventRef, String userEmail) {
-        int reserved = Integer.parseInt(reservedSeats); // Plazas reservadas actualmente
-
-        eventRef.update("reservedSeats", Integer.toString(reserved - 1), "users", FieldValue.arrayRemove(userEmail))
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(getContext(), "Reserva cancelada", Toast.LENGTH_SHORT).show();
-                    updateReserveButton("Reservar", android.R.color.black, v -> reserveSeat(eventRef, userEmail));
-                })
-                .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al cancelar la reserva", Toast.LENGTH_SHORT).show());
+        showCancelReservaDialog(eventRef, userEmail);
     }
 
 
@@ -185,6 +164,60 @@ public class EventDetail_Fragment extends Fragment {
                     // Cierra el diálogo y regresa a la pestaña anterior
                     dialog.dismiss();
                     requireActivity().getSupportFragmentManager().popBackStack();
+                })
+                .show();
+    }
+
+    private void showCancelReservaDialog(DocumentReference eventRef, String userEmail) {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Cancelación de Reserva")
+                .setMessage("¿Seguro que quieres cancelar tu reserva en este evento?")
+                .setIcon(R.drawable.ic_aviso)
+                .setCancelable(false) // Evita que el diálogo se cierre tocando fuera de él
+                .setPositiveButton("Sí", (dialog, which) -> {
+                    int reserved = Integer.parseInt(reservedSeats); // Plazas reservadas actualmente
+
+                    eventRef.update("reservedSeats", Integer.toString(reserved - 1), "users", FieldValue.arrayRemove(userEmail))
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(getContext(), "Reserva cancelada", Toast.LENGTH_SHORT).show();
+                                updateReserveButton("Reservar", android.R.color.black, v -> reserveSeat(eventRef, userEmail));
+                                getParentFragmentManager().popBackStack();
+                            })
+                            .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al cancelar la reserva", Toast.LENGTH_SHORT).show());
+                })
+                .setNegativeButton("No", (dialog, which) -> {
+                    // Cierra el diálogo y regresa a la pestaña anterior
+                    dialog.dismiss();
+                })
+                .show();
+    }
+
+
+    private void showReserveDialog(DocumentReference eventRef, String userEmail) {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Reserva Evento")
+                .setMessage("¿Seguro que reservar plaza para el evento?")
+                .setIcon(R.drawable.ic_aviso)
+                .setCancelable(false) // Evita que el diálogo se cierre tocando fuera de él
+                .setPositiveButton("Sí", (dialog, which) -> {
+                    int reserved = Integer.parseInt(reservedSeats); // Plazas reservadas actualmente
+
+                    if (totalSeats.equals("No hay limite de aforo") || totalSeats.isEmpty() || reserved < Integer.parseInt(totalSeats)) {
+                        eventRef.update("reservedSeats", Integer.toString(reserved + 1), "users", FieldValue.arrayUnion(userEmail))
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(getContext(), "Reserva confirmada", Toast.LENGTH_SHORT).show();
+                                    updateReserveButton("Cancelar Reserva", android.R.color.holo_red_dark, v -> cancelReservation(eventRef, userEmail));
+                                    getParentFragmentManager().popBackStack();
+                                })
+                                .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al realizar la reserva", Toast.LENGTH_SHORT).show());
+                        //requireActivity().getSupportFragmentManager().popBackStack();
+                    } else {
+                        Toast.makeText(getContext(), "No quedan plazas disponibles", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("No", (dialog, which) -> {
+                    // Cierra el diálogo y regresa a la pestaña anterior
+                    dialog.dismiss();
                 })
                 .show();
     }

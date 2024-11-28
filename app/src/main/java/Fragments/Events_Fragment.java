@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -82,37 +84,6 @@ public class Events_Fragment extends Fragment {
                 return true;
             }
         });
-
-
-        // Verificar si el usuario está logueado
-        /*if (auth.getCurrentUser() == null) {
-            showNotLoggedInDialog();
-        } else {
-            // Cargar eventos si el usuario está logueado
-            // Cargar todos los eventos al inicio
-            loadEvents();
-
-            // Configurar el listener del SearchView
-            searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    searchEvents(query);
-                    return true;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    if (newText.isEmpty()) {
-                        loadEvents(); // Volver a cargar todos los eventos si el texto está vacío
-                    } else {
-                        searchEvents(newText);
-                    }
-                    return true;
-                }
-            });
-
-        }*/
-
 
     }
 
@@ -200,26 +171,6 @@ public class Events_Fragment extends Fragment {
                 .replace(R.id.Frame_Layout_NavView, eventDetailFragment)
                 .addToBackStack(null)
                 .commit();
-    }
-
-
-    private void showNotLoggedInDialog() {
-        new AlertDialog.Builder(requireContext())
-                .setTitle("Acceso Restringido")
-                .setMessage("Debes iniciar sesión para visualizar los eventos.")
-                .setIcon(R.drawable.ic_aviso)
-                .setCancelable(false) // Evita que el diálogo se cierre tocando fuera de él
-                .setPositiveButton("Iniciar Sesión", (dialog, which) -> {
-                    // Redirigir al usuario al login
-                    Intent intent = new Intent(requireActivity(), LoginActivity.class);
-                    startActivity(intent);
-                })
-                .setNegativeButton("Atrás", (dialog, which) -> {
-                    // Cierra el diálogo y regresa a la pestaña anterior
-                    dialog.dismiss();
-                    requireActivity().getSupportFragmentManager().popBackStack();
-                })
-                .show();
     }
 
 
