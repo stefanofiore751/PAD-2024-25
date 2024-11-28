@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <!-- Icon button in the upper-right corner -->
     <ImageButton
         android:id="@+id/btnGoToLogin"
@@ -30,7 +29,6 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
     </FrameLayout>
     <!-- Menú inferior -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

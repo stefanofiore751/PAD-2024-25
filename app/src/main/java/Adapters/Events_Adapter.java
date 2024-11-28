@@ -9,8 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.List;
+import com.google.firebase.auth.FirebaseAuth;
 import Modelos.Event;
 import es.ucm.fdi.viva_tu_pueblo.R;
 
@@ -40,7 +42,20 @@ public class Events_Adapter extends RecyclerView.Adapter<Events_Adapter.EventVie
 
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
+
         Event event = eventList.get(position);
+
+        // Obtener el correo del usuario actual
+        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+        // Comprobar si el usuario ha reservado el evento
+        if (event.getUsers().contains(userEmail)) {
+            // Si el usuario ha reservado, mostrar el ícono de reserva
+            holder.ivReservedIcon.setVisibility(View.VISIBLE);
+        } else {
+            // Si no ha reservado, ocultar el ícono
+            holder.ivReservedIcon.setVisibility(View.GONE);
+        }
 
         // Configurar datos del evento en las vistas
         holder.tvTituloEvento.setText(event.getEventName());
@@ -63,7 +78,8 @@ public class Events_Adapter extends RecyclerView.Adapter<Events_Adapter.EventVie
     // ViewHolder para los elementos del RecyclerView
     static class EventViewHolder extends RecyclerView.ViewHolder {
         TextView tvTituloEvento, tvPrecioEvento, tvUbicacionEvento, tvFechaHoraEvento;
-        ImageView ivImagenEvento;
+        ImageView ivImagenEvento, ivReservedIcon;
+
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +88,7 @@ public class Events_Adapter extends RecyclerView.Adapter<Events_Adapter.EventVie
             tvUbicacionEvento = itemView.findViewById(R.id.tvUbicacionEvento);
             tvFechaHoraEvento = itemView.findViewById(R.id.tvFechaHoraEvento);
             ivImagenEvento = itemView.findViewById(R.id.ivImagenEvento);
+            ivReservedIcon = itemView.findViewById(R.id.ivReservedIcon);
         }
     }
 }

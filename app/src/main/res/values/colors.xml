@@ -6,4 +6,5 @@
     <color name="selected_color">#4CAF50</color> <!-- Verde -->
     <color name="dark_moss_green">#556B2F</color>
     <color name="grey">#808080</color>
+    <color name="yellow">#ffff00</color>
 </resources>
