@@ -50,6 +50,7 @@ public class SignUpActivity extends AppCompatActivity {
         String address = etAdress.getText().toString().trim();
         String city = etCity.getText().toString().trim();
 
+
         // Verificar que los campos no estén vacíos
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(fullName) ||
                 TextUtils.isEmpty(address) || TextUtils.isEmpty(city)) {
