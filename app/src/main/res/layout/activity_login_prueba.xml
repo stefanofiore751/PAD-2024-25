@@ -27,7 +27,7 @@
         android:id="@+id/username_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Username"
+        android:hint="@string/email"
         android:textColorHint="@color/white"
         android:padding="10dp"
         android:backgroundTint="@color/white"
@@ -42,7 +42,7 @@
         android:id="@+id/password_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="@string/password"
         android:textColorHint="@color/white"
         android:padding="10dp"
         android:inputType="textPassword"
@@ -80,10 +80,14 @@
         app:layout_constraintTop_toBottomOf="@id/login_button" />
 
     <!-- Texto adicional -->
+
+    <!-- Guías -->
+
     <TextView
         android:id="@+id/textViewDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
         android:text="¿No tienes Pueblo!?"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEndLogin"
@@ -94,13 +98,13 @@
         android:id="@+id/tvSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="23dp"
-        android:textStyle="bold"
-        android:layout_marginTop="40dp"
-        android:text="¡Únete a uno!"
-        android:textColor="@color/white"
+        android:layout_marginTop="36dp"
         android:clickable="true"
         android:focusable="true"
+        android:text="¡Únete a uno!"
+        android:textColor="@color/white"
+        android:textSize="23dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEndLogin"
         app:layout_constraintStart_toStartOf="@+id/guidelineStartLogin"
         app:layout_constraintTop_toTopOf="@+id/textViewDescription" />
@@ -109,15 +113,16 @@
         android:id="@+id/tvForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="¿Has olvidado tu contraseña?"
-        android:textColor="@color/white"
+        android:layout_marginTop="48dp"
         android:clickable="true"
         android:focusable="true"
+        android:text="¿Has olvidado tu contraseña?"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEndLogin"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/guidelineStartLogin"
         app:layout_constraintTop_toTopOf="@+id/guidelineBottomLogin" />
 
-    <!-- Guías -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineBottomLogin"
         android:layout_width="wrap_content"

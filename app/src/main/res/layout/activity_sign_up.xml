@@ -53,6 +53,42 @@
         android:background="@color/grey"
         android:fontFamily="sans-serif" />
 
+    <!-- Full Name Input -->
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etFullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/full_name"
+        android:inputType="text"
+        android:layout_marginTop="16dp"
+        android:padding="12dp"
+        android:background="@color/grey"
+        android:fontFamily="sans-serif" />
+
+    <!-- Address Input -->
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etAdress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/address"
+        android:inputType="textPostalAddress"
+        android:layout_marginTop="16dp"
+        android:padding="12dp"
+        android:background="@color/grey"
+        android:fontFamily="sans-serif" />
+
+    <!-- City Input -->
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/city"
+        android:inputType="text"
+        android:layout_marginTop="16dp"
+        android:padding="12dp"
+        android:background="@color/grey"
+        android:fontFamily="sans-serif" />
+
     <!-- Sign Up Button -->
     <Button
         android:id="@+id/btnSignUp"
