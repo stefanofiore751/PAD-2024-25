@@ -54,4 +54,11 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password?</string>
+    <string name="logo">Logo</string>
+    <string name="username">Username</string>
+    <string name="iniciar_sesion">Iniciar Sesion</string>
+    <string name="nete_a_uno">¡Únete a uno!</string>
+    <string name="has_olvidado_tu_contrase_a">¿Has olvidado tu contraseña?</string>
+    <string name="continuar_como_invitado">Continuar como invitado</string>
+    <string name="no_tienes_pueblo">¿No tienes Pueblo!?</string>
 </resources>
