@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +28,7 @@ import Modelos.Event;
 import Modelos.User;
 import es.ucm.fdi.viva_tu_pueblo.R;
 
-public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventClickListener {
+public class Perfil_Fragment extends Fragment {
 
     // Variables de la interfaz
     private FirebaseAuth mAuth;
@@ -39,7 +38,6 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
     private RecyclerView rvEventosReservados;
     private Events_Adapter eventosAdapter;
     private Button btnMostrarEventos;
-    private ImageButton btnSalir;
 
     // Método constructor
     public Perfil_Fragment() {
@@ -52,23 +50,19 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
         // Inflamos el layout
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
+        // Inicializamos las variables
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+        // Inicialización de la interfaz
         rvEventosReservados = view.findViewById(R.id.rvEventosReservados);
         btnMostrarEventos = view.findViewById(R.id.btnReservedEvents);
-        btnSalir = view.findViewById(R.id.salirButton);
 
-        // Cargar los datos del usuario y pasamos la vista para evitar problemas con getView()
-        loadUserData(view);
+        // Cargar los datos del usuario
+        loadUserData(view); // Pasamos la vista para evitar problemas con getView()
 
         // Lógica para mostrar eventos reservados cuando se presione el botón
         btnMostrarEventos.setOnClickListener(v -> showReservedEvents());
-
-        // Configurar el evento del botón de salida
-        btnSalir.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().popBackStack();
-        });
 
         return view;
     }
@@ -149,12 +143,8 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
             return;
         }
 
-        /*for(int i = 0; i < eventosReservadosIds.size(); ++i){
-            db.collection("events")
-        }*/
-
         // Cargar los eventos desde Firestore usando los IDs de los eventos reservados
-        db.collection("events")
+        db.collection("eventos")
                 .whereIn("id", eventosReservadosIds)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
@@ -168,8 +158,7 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
     private void showInView(List<Event> eventos) {
         rvEventosReservados.setVisibility(View.VISIBLE);
         rvEventosReservados.setLayoutManager(new LinearLayoutManager(getContext()));
-        //eventosAdapter = new Events_Adapter(eventos, (Events_Adapter.OnEventClickListener) getContext());
-        eventosAdapter = new Events_Adapter(eventos, this);
+        eventosAdapter = new Events_Adapter(eventos, (Events_Adapter.OnEventClickListener) getContext());
         rvEventosReservados.setAdapter(eventosAdapter);
     }
 
@@ -183,10 +172,5 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
     private void cambiarContrasena() {
         // Lógica para cambiar contraseña
         Toast.makeText(getContext(), "Cambiar contraseña", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onEventClick(Event event) {
-        Toast.makeText(getContext(), "Evento seleccionado ", Toast.LENGTH_SHORT).show();
     }
 }
