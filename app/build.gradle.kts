@@ -1,16 +1,15 @@
 plugins {
-    id("com.android.application")
-    alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.android.application)
 }
 
 android {
-    namespace = "es.ucm.fdi.viva_tu_pueblo"
-    compileSdk = 35
+    namespace = "es.ucm.fdi.deffuncionalidadnoticias"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "es.ucm.fdi.viva_tu_pueblo"
+        applicationId = "es.ucm.fdi.deffuncionalidadnoticias"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -33,17 +32,17 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.glide)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation (libs.okhttp.v4110)
+    implementation (libs.okhttp3.logging.interceptor)
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation(libs.firebase.bom) // Firebase BoM para manejar versiones compatibles
-    implementation(libs.firebase.database)
-    implementation(libs.play.services.auth)
-    implementation(libs.credentials)
-    implementation(libs.credentials.play.services.auth)
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

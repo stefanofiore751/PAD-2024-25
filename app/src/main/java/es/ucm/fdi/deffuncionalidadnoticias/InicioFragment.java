@@ -1,6 +1,7 @@
 package es.ucm.fdi.deffuncionalidadnoticias;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ public class InicioFragment extends Fragment {
     String api = "b5c1b7fd34d0448292156a799e4c0055";
     ArrayList<ModelClass> modelClassArrayList;
     Adapter adapter;
-    String country = "in";
+    String country = "us";
     private RecyclerView recyclerViewInicio;
 
     @Nullable
@@ -45,24 +46,22 @@ public class InicioFragment extends Fragment {
     }
 
     private void findNews() {
-
-        ApiUtilities.getApiInterface().getNews(country, 100, api).enqueue(new Callback<mainNews>() {
+        ApiUtilities.getApiInterface().getNews(country).enqueue(new Callback<mainNews>() {
             @Override
             public void onResponse(Call<mainNews> call, Response<mainNews> response) {
-
-                if(response.isSuccessful()){
+                if (response.isSuccessful() && response.body() != null) {
                     modelClassArrayList.addAll(response.body().getArticles());
                     adapter.notifyDataSetChanged();
+                } else {
+                    Log.e("InicioFragment", "Error en la respuesta: " + response.code());
                 }
-
             }
 
             @Override
             public void onFailure(Call<mainNews> call, Throwable t) {
-
+                Log.e("InicioFragment", "Error en la llamada: ", t);
             }
         });
-
     }
 
 }

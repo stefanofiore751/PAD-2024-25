@@ -2,8 +2,4 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="unselected_color">#FF000000</color>
-    <color name="selected_color">#4CAF50</color> <!-- Verde -->
-    <color name="dark_moss_green">#556B2F</color>
-    <color name="grey">#808080</color>
 </resources>

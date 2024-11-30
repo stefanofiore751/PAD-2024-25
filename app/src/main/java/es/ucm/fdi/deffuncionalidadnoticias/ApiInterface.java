@@ -6,21 +6,17 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-    String BASE_URL ="https://newsapi.org/v2/";
+    String BASE_URL = "https://newsapi.org/v2/";
 
     @GET("top-headlines")
     Call<mainNews> getNews(
-            @Query("country") String country,
-            @Query("pageSize") int pagesize,
-            @Query("apiKey") String apikey
+            @Query("country") String country
     );
 
     @GET("top-headlines")
     Call<mainNews> getCategoryNews(
             @Query("country") String country,
-            @Query("category") String category,
-            @Query("pageSize") int pagesize,
-            @Query("apiKey") String apikey
+            @Query("category") String category
     );
 
 }

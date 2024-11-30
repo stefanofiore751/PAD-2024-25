@@ -35,21 +35,24 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
+        ModelClass currentModel = modelClassArrayList.get(position);
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.published_at.setText("Publicado el: " + currentModel.getPublishedAt());
+        holder.author.setText(currentModel.getAuthor());
+        holder.title.setText(currentModel.getTitle());
+        holder.content.setText(currentModel.getDescription());
+        Glide.with(context).load(currentModel.getUrlToImage()).into(holder.imageView);
+
+        holder.cardView.setOnClickListener(v -> {
+            int currentPosition = holder.getAdapterPosition();
+            if (currentPosition != RecyclerView.NO_POSITION) {
+                ModelClass selectedModel = modelClassArrayList.get(currentPosition);
+
                 Intent intent = new Intent(context, webView.class);
-                intent.putExtra("url", modelClassArrayList.get(position).getUrl());
+                intent.putExtra("url", selectedModel.getUrl());
                 context.startActivity(intent);
             }
         });
-
-        holder.published_at.setText("Publicado el: " + modelClassArrayList.get(position).getPublishedAt());
-        holder.author.setText(modelClassArrayList.get(position).getAuthor());
-        holder.title.setText(modelClassArrayList.get(position).getTitle());
-        holder.content.setText(modelClassArrayList.get(position).getDescription());
-        Glide.with(context).load(modelClassArrayList.get(position).getUrlToImage()).into(holder.imageView);
     }
 
     @Override

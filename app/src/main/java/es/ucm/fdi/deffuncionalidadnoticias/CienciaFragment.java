@@ -1,6 +1,7 @@
 package es.ucm.fdi.deffuncionalidadnoticias;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,9 @@ public class CienciaFragment extends Fragment {
     String api = "b5c1b7fd34d0448292156a799e4c0055";
     ArrayList<ModelClass> modelClassArrayList;
     Adapter adapter;
-    String country = "in";
+    String country = "us";
     private RecyclerView recyclerViewCiencia;
-    private String category = "ciencia";
+    private String category = "science";
 
     @Nullable
     @Override
@@ -43,15 +44,16 @@ public class CienciaFragment extends Fragment {
 
     private void findNews() {
 
-        ApiUtilities.getApiInterface().getCategoryNews(country, category, 100,api).enqueue(new Callback<mainNews>() {
+        ApiUtilities.getApiInterface().getCategoryNews(country, category).enqueue(new Callback<mainNews>() {
             @Override
             public void onResponse(Call<mainNews> call, Response<mainNews> response) {
-
-                if(response.isSuccessful()){
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.d("API_RESPONSE", "Noticias recibidas: " + response.body().getArticles().size());
                     modelClassArrayList.addAll(response.body().getArticles());
                     adapter.notifyDataSetChanged();
+                } else {
+                    Log.e("API_RESPONSE", "Error en la respuesta: " + response.message());
                 }
-
             }
 
             @Override

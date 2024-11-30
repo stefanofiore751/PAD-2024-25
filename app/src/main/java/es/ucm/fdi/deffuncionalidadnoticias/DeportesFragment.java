@@ -21,9 +21,9 @@ public class DeportesFragment extends Fragment {
     String api = "b5c1b7fd34d0448292156a799e4c0055";
     ArrayList<ModelClass> modelClassArrayList;
     Adapter adapter;
-    String country = "in";
+    String country = "us";
     private RecyclerView recyclerViewDeportes;
-    private String category = "deportes";
+    private String category = "sports";
 
     @Nullable
     @Override
@@ -43,7 +43,7 @@ public class DeportesFragment extends Fragment {
 
     private void findNews() {
 
-        ApiUtilities.getApiInterface().getCategoryNews(country, category, 100,api).enqueue(new Callback<mainNews>() {
+        ApiUtilities.getApiInterface().getCategoryNews(country, category).enqueue(new Callback<mainNews>() {
             @Override
             public void onResponse(Call<mainNews> call, Response<mainNews> response) {
 
