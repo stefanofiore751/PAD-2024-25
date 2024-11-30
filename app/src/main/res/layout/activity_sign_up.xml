@@ -117,11 +117,14 @@
 
     <!-- Already Have Account -->
     <TextView
+        android:height="48dp"
         android:id="@+id/login_redirect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/already_have_account"
+        android:clickable="true"
+        android:focusable="true"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEndSignup"

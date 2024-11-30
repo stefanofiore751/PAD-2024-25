@@ -1,9 +1,11 @@
 package viva_tu_pueblo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,10 +40,19 @@ public class SignUpActivity extends AppCompatActivity {
         etAdress = findViewById(R.id.address_field);
         etCity = findViewById(R.id.city_field);
 
+        TextView tvLogin = findViewById(R.id.login_redirect);
+
         Button btnSignUp = findViewById(R.id.signup_button);
+
+        tvLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+            startActivity(intent);
+        });
 
         btnSignUp.setOnClickListener(v -> registerUser());
     }
+
+
 
     private void registerUser() {
         String email = etEmail.getText().toString().trim();
