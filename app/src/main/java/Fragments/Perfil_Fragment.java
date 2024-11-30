@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -141,27 +142,42 @@ public class Perfil_Fragment extends Fragment {
 
     // Mostrar los eventos reservados del usuario
     private void showReservedEvents() {
-        if (actualUser == null) {
-            Toast.makeText(getContext(), "Datos del usuario no disponibles", Toast.LENGTH_SHORT).show();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Toast.makeText(getContext(), "Usuario no autenticado", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Obtener los eventos reservados
-        List<String> eventosReservadosIds = actualUser.getReservedEvents(); // Se usa 'actualUser' en lugar de 'usuarioActual'
-        if (eventosReservadosIds == null || eventosReservadosIds.isEmpty()) {
-            Toast.makeText(getContext(), "No hay eventos reservados", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        String userId = currentUser.getUid();
+        DocumentReference userRef = db.collection("user").document(userId);
 
-        // Cargar los eventos desde Firestore usando los IDs de los eventos reservados
-        db.collection("eventos")
-                .whereIn("id", eventosReservadosIds)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    List<Event> eventosReservados = queryDocumentSnapshots.toObjects(Event.class);
-                    showInView(eventosReservados); // Mostrar los eventos en el RecyclerView
+        userRef.get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        List<String> eventosReservadosIds = (List<String>) documentSnapshot.get("reservedEvents"); // Leggi il campo 'reservedEvents'
+                        if (eventosReservadosIds == null || eventosReservadosIds.isEmpty()) {
+                            Toast.makeText(getContext(), "No hay eventos reservados", Toast.LENGTH_SHORT).show();
+                        } else {
+                            db.collection("events")
+                                    .whereIn(FieldPath.documentId(), eventosReservadosIds)
+                                    .get()
+                                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                                        List<Event> eventosReservados = queryDocumentSnapshots.toObjects(Event.class);
+                                        showInView(eventosReservados);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.e("Firebase", "Error al cargar eventos reservados", e);
+                                        Toast.makeText(getContext(), "Error al cargar eventos", Toast.LENGTH_SHORT).show();
+                                    });
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Usuario no encontrado", Toast.LENGTH_SHORT).show();
+                    }
                 })
-                .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al cargar eventos", Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> {
+                    Log.e("Firebase", "Error al obtener datos del usuario", e);
+                    Toast.makeText(getContext(), "Error al obtener datos del usuario", Toast.LENGTH_SHORT).show();
+                });
     }
 
     // Mostrar los eventos en el RecyclerView
