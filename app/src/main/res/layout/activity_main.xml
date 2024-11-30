@@ -5,46 +5,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Icon button in the upper-right corner for login or profile -->
-    <ImageButton
-        android:id="@+id/btnGoToLogin"
-        android:layout_width="48dp"
-        android:layout_height="51dp"
+    <!-- Contenedor del encabezado -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/login_button"
-        android:padding="8dp"
-        android:src="@drawable/logo_improvisado"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="visible"/>
+        app:layout_constraintTop_toTopOf="parent">
 
-    <!-- Profile image button, initially hidden -->
-    <ImageButton
-        android:id="@+id/btnProfile"
-        android:layout_width="48dp"
-        android:layout_height="51dp"
-        android:layout_margin="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Boton de perfil"
-        android:padding="8dp"
-        android:src="@drawable/ic_perfil2"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        app:layout_constraintEnd_toEndOf="parent"   app:layout_constraintTop_toTopOf="parent"
-        android:visibility="invisible"/> <!-- Inicialmente invisible -->
+        <!-- Icon button for login/profile -->
+        <ImageButton
+            android:id="@+id/btnGoToLogin"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/login_button"
+            android:padding="8dp"
+            android:src="@drawable/logo_improvisado"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="visible" />
+
+        <!-- Profile image button, initially hidden -->
+        <ImageButton
+            android:id="@+id/btnProfile"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Botón de perfil"
+            android:padding="8dp"
+            android:src="@drawable/ic_perfil2"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="invisible" />
+
+        <!-- Título de la página -->
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="104dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Contenido principal de la pantalla -->
     <FrameLayout
         android:id="@+id/Frame_Layout_NavView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintTop_toBottomOf="@id/header_container"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </FrameLayout>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Menú inferior -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

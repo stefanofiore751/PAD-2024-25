@@ -7,7 +7,7 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="30dp"
-    android:background="@drawable/searchview_background">
+    app:cardBackgroundColor="#B8BBAA">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -17,8 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp">
-            <!-- Fondo opcional -->
-            <!-- android:background="@drawable/bg_card_gradient" -->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,13 +29,15 @@
                     android:layout_height="80dp"
                     android:layout_marginEnd="8dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_image" />
+                    android:src="@drawable/ic_image"
+                    android:background="@color/white"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@drawable/round_events_info">
 
                     <TextView
                         android:id="@+id/tvTituloEvento"
@@ -46,7 +46,9 @@
                         android:layout_marginBottom="4dp"
                         android:text="Título del Evento"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:paddingStart="10dp"
+                        />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -60,7 +62,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:text="Precio: 10€"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:paddingStart="10dp"/>
 
                         <TextView
                             android:id="@+id/tvUbicacionEvento"
@@ -76,7 +79,8 @@
                         android:layout_height="wrap_content"
                         android:text="Día: 25/11/2024 - Hora: 18:00"
                         android:textColor="@color/black"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:paddingStart="10dp"/>
                     <!--Molaria poner un icono de hora y al lado la hora-->
                 </LinearLayout>
             </LinearLayout>

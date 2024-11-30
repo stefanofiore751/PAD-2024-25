@@ -8,7 +8,7 @@
     android:background="@color/white"
     tools:context="Fragments.Events_Fragment">
 
-    <TextView
+    <!--<TextView
         android:id="@+id/textEventos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp" />-->
 
     <!-- SearchView -->
     <androidx.appcompat.widget.SearchView
@@ -31,9 +31,11 @@
         android:scaleX="0.9"
         android:queryHint="Buscar eventos por nombre"
         android:background="@drawable/searchview_background"
-        app:layout_constraintTop_toBottomOf="@id/textEventos"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnCalendar"/>
+        app:layout_constraintEnd_toStartOf="@id/btnCalendar"
+        tools:ignore="MissingConstraints" />
+        <!--app:layout_constraintTop_toBottomOf="@id/textEventos"-->
+
 
 
     <!-- RecyclerView para las tarjetas de eventos -->
@@ -52,7 +54,8 @@
         android:background="@drawable/ic_calendar"
         android:backgroundTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textEventos" />
+        tools:ignore="MissingConstraints" />
+    <!--app:layout_constraintTop_toBottomOf="@id/textEventos"-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewEventos"
