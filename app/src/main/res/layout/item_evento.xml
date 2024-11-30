@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="10dp">
+    app:cardElevation="30dp"
+    android:background="@drawable/searchview_background">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -16,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp">
-            <!--android:background="@drawable/bg_card_gradient"-->
+            <!-- Fondo opcional -->
+            <!-- android:background="@drawable/bg_card_gradient" -->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,7 +80,19 @@
                     <!--Molaria poner un icono de hora y al lado la hora-->
                 </LinearLayout>
             </LinearLayout>
+
+            <!-- Icono de Reserva -->
+            <ImageView
+                android:id="@+id/ivReservedIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_reserved"
+                android:contentDescription="Evento reservado"
+                android:visibility="gone" /> <!-- Oculto por defecto -->
         </RelativeLayout>
     </FrameLayout>
 </androidx.cardview.widget.CardView>
-

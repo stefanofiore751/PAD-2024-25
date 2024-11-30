@@ -1,0 +1,146 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F2F2F2">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="#B8BBAA"
+        app:cardUseCompatPadding="true"
+        android:strokeColor="#000000">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Foto de perfil -->
+            <ImageView
+                android:id="@+id/ivProfilePicture"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_perfil2"
+                android:background="@drawable/round_image"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Nombre del usuario -->
+            <TextView
+                android:id="@+id/tvFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre del usuario"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:layout_marginBottom="8dp"
+                android:textStyle="bold"
+                android:background="@drawable/round_text_view" />
+
+            <!-- Email -->
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="email@example.com"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:gravity="center"
+                android:layout_marginBottom="8dp"
+                android:textStyle="bold"
+                android:background="@drawable/round_text_view" />
+
+            <!-- Dirección -->
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Calle Ejemplo, Ciudad"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:gravity="center"
+                android:layout_marginBottom="16dp"
+                android:textStyle="bold"
+                android:background="@drawable/round_text_view" />
+
+            <!-- Ciudad -->
+            <TextView
+                android:id="@+id/tvCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ciudad"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:gravity="center"
+                android:layout_marginBottom="16dp"
+                android:textStyle="bold"
+                android:background="@drawable/round_text_view" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvEventosReservados"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <!-- Contenedor para botones centrados -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/btnReservedEvents"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Reservas"
+                    android:backgroundTint="@color/black"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="8dp"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="8dp" />
+
+                <Button
+                    android:id="@+id/btnEditPersonalInfo"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/black"
+                    android:drawablePadding="8dp"
+                    android:text="Editar"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/btnChangePassword"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Cambiar contraseña"
+                    android:backgroundTint="@color/black"
+                    android:textColor="#FFFFFF"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="8dp" />
+
+                <Button
+                    android:id="@+id/btnLogOut"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Log Out"
+                    android:backgroundTint="@color/black"
+                    android:textColor="#FFFFFF"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="8dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</ScrollView>

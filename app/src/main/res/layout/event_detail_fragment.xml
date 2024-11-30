@@ -5,8 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/dark_moss_green"
+    android:background="@color/white"
     tools:context="es.ucm.fdi.viva_tu_pueblo.Fragments.EventDetail_Fragment">
+
 
     <!-- Contenedor del botón de retroceso y el título -->
     <LinearLayout
@@ -22,7 +23,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/ic_back"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/black"
             android:padding="8dp"
             android:scaleX="0.5"
             android:scaleY="0.5"
@@ -35,37 +36,44 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Título del Evento"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             android:gravity="center" />
     </LinearLayout>
 
-    <!-- Imagen destacada -->
-
     <!-- Información del evento -->
     <ImageView
         android:id="@+id/event_image"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="0.5"
-        android:scaleY="0.8"
-        android:scaleX="0.7"
+        android:layout_height="41dp"
+        android:layout_weight="0.3"
+        android:background="@drawable/ic_image"
+        android:backgroundTint="@color/black"
         android:scaleType="centerCrop"
-        android:backgroundTint="@color/white"
-        android:background="@drawable/ic_image" />
+        android:scaleX="0.7"
+        android:scaleY="0.8" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="10dp">
+
         <TextView
             android:id="@+id/event_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Precio: Gratis"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/event_reservedSeats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reservas: 100"
+            android:textColor="@android:color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -73,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ubicación: Lugar de Ejemplo"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -81,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Fecha y Hora: 25 Nov, 2024 - 19:00"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -98,7 +106,7 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="Descripción detallada del evento."
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="16sp" />
 
     <!-- Línea separadora -->
@@ -106,23 +114,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#CCCCCC" />
-
-    <!-- Galería de imágenes recientes -->
-    <TextView
-        android:id="@+id/recent_photos_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:text="Imágenes recientes"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recent_photos_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"/>
 
     <!-- Botón reservar centrado -->
     <LinearLayout
@@ -136,10 +127,9 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/black"
             android:text="Reservar"
-            android:textColor="@color/dark_moss_green"/>
+            android:textColor="@color/white"/>
     </LinearLayout>
-
 
 </LinearLayout>

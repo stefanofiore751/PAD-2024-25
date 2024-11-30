@@ -6,14 +6,18 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import Fragments.Events_Fragment;
 import Fragments.Home_Fragment;
 import Fragments.Incidents_Fragment;
 import Fragments.Notices_Fragment;
+import Fragments.Perfil_Fragment;
 import Fragments.Routes_Fragment;
 import es.ucm.fdi.viva_tu_pueblo.R;
 
@@ -25,22 +29,63 @@ public class MainActivity extends AppCompatActivity {
     private final Routes_Fragment routesFragment = new Routes_Fragment();
     private final Events_Fragment eventsFragment = new Events_Fragment();
 
+    private ImageButton btnGoToLogin, btnProfile;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Inicializar FirebaseAuth
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        // Inicializar botones
+        btnGoToLogin = findViewById(R.id.btnGoToLogin);
+        btnProfile = findViewById(R.id.btnProfile); // Asegúrate de que este botón esté definido en el XML
+
+        // Configurar botones según estado de autenticación
+        configureButtons();
+
+        // Configurar barra de navegación inferior
         BottomNavigationView navBarBottom = findViewById(R.id.bottomNavigationView);
         navBarBottom.setSelectedItemId(R.id.nav_home);
         navBarBottom.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
+
         loadFragment(homeFragment);
 
-        // Set up login button click listener
-        ImageButton btnGoToLogin = findViewById(R.id.btnGoToLogin);
-        btnGoToLogin.setOnClickListener(v -> {
+    }
+
+
+    private void configureButtons() {
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            if (currentUser.isAnonymous()) {
+                // Usuario invitado: mostrar botón de login
+                btnProfile.setVisibility(View.INVISIBLE);
+                btnGoToLogin.setVisibility(View.VISIBLE);
+
+                btnGoToLogin.setOnClickListener(v -> {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                });
+            } else {
+                // Usuario autenticado: mostrar botón de perfil
+                btnGoToLogin.setVisibility(View.INVISIBLE);
+                btnProfile.setVisibility(View.VISIBLE);
+
+                btnProfile.setOnClickListener(v -> {
+                    loadFragment(new Perfil_Fragment());
+                });
+            }
+        } else {
+            // No hay usuario autenticado: redirigir al LoginActivity
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
-        });
+            finish();
+        }
     }
 
 

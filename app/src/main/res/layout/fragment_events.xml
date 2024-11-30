@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_moss_green"
+    android:background="@color/white"
     tools:context="Fragments.Events_Fragment">
 
     <TextView
@@ -29,11 +29,11 @@
         android:layout_margin="8dp"
         android:scaleY="0.9"
         android:scaleX="0.9"
-        android:queryHint="Buscar eventos..."
+        android:queryHint="Buscar eventos por nombre"
         android:background="@drawable/searchview_background"
         app:layout_constraintTop_toBottomOf="@id/textEventos"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnCalendar" />
+        app:layout_constraintEnd_toStartOf="@id/btnCalendar"/>
 
 
     <!-- RecyclerView para las tarjetas de eventos -->
@@ -50,7 +50,7 @@
         android:scaleX="0.7"
         android:scaleY="0.7"
         android:background="@drawable/ic_calendar"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textEventos" />
 
