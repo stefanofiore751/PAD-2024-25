@@ -1,6 +1,5 @@
 package viva_tu_pueblo;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,14 +9,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
 
 import es.ucm.fdi.viva_tu_pueblo.R;
 
@@ -42,9 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin.setOnClickListener(v -> loginUser());
 
-        btnGuest.setOnClickListener(v -> {
-            showInfoGuestDialog();
-        });
+        btnGuest.setOnClickListener(v -> showInfoGuestDialog());
 
         tvSignUp.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
@@ -52,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         tvForgotPassword.setOnClickListener(v -> {
-            Toast.makeText(LoginActivity.this, "Forgot Password Clicked", Toast.LENGTH_SHORT).show();
+            showForgotPasswordDialog();
         });
     }
 
@@ -68,28 +62,22 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        //FirebaseUser user = firebaseAuth.getCurrentUser();
                         Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
-
                     } else {
                         Toast.makeText(LoginActivity.this, "Login Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
     }
-
 
     private void showInfoGuestDialog() {
         new AlertDialog.Builder(LoginActivity.this)
                 .setTitle("Acceso como invitado")
                 .setMessage("Al acceder como invitado, tendrás acceso limitado a las funcionalidades de la aplicación. \n¿Deseas continuar?")
                 .setIcon(R.drawable.ic_aviso)
-                .setCancelable(false) // Evita que el diálogo se cierre tocando fuera de él
+                .setCancelable(false)
                 .setPositiveButton("Sí, continuar", (dialog, which) -> {
                     firebaseAuth.signInAnonymously()
                             .addOnCompleteListener(task -> {
@@ -102,12 +90,40 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             });
                 })
-                .setNegativeButton("Cancelar", (dialog, which) -> {
-                    // Cierra el diálogo y regresa a la pestaña anterior
-                    dialog.dismiss();
-                })
+                .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
                 .show();
     }
 
+    private void showForgotPasswordDialog() {
+        // Create an EditText for email input
+        EditText emailInput = new EditText(this);
+        emailInput.setHint("Enter your email");
 
+        new AlertDialog.Builder(this)
+                .setTitle("Reset Password")
+                .setMessage("Please enter your email address to reset your password.")
+                .setView(emailInput)
+                .setCancelable(false)
+                .setPositiveButton("Send Reset Link", (dialog, which) -> {
+                    String email = emailInput.getText().toString().trim();
+                    if (TextUtils.isEmpty(email)) {
+                        Toast.makeText(LoginActivity.this, "Please enter an email", Toast.LENGTH_SHORT).show();
+                    } else {
+                        sendPasswordResetEmail(email);
+                    }
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    private void sendPasswordResetEmail(String email) {
+        firebaseAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(LoginActivity.this, "Password reset email sent!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 }

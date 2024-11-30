@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -144,7 +145,7 @@ public class Perfil_Fragment extends Fragment {
         }
 
         // Cargar los eventos desde Firestore usando los IDs de los eventos reservados
-        db.collection("eventos")
+        db.collection("events")
                 .whereIn("id", eventosReservadosIds)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {

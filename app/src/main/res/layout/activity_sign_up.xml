@@ -1,114 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center"
-    android:background="@color/white">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black"
+    tools:context="viva_tu_pueblo.SignUpActivity">
 
-    <!-- App Logo -->
+    <!-- Logo -->
     <ImageView
-        android:id="@+id/logo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:id="@+id/logo_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/round_image"
+        android:contentDescription="@string/logo_image"
+        android:scaleType="centerCrop"
+        android:clipToOutline="true"
         android:src="@drawable/logo_improvisado"
-        android:contentDescription="@string/app_logo"
-        android:layout_gravity="center" />
-
-    <!-- Title -->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_up"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        android:fontFamily="sans-serif-medium"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center" />
-
-    <!-- Email Input -->
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/etEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:layout_marginTop="24dp"
-        android:padding="12dp"
-        android:background="@color/grey"
-        android:fontFamily="sans-serif" />
-
-    <!-- Password Input -->
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/etPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:layout_marginTop="16dp"
-        android:padding="12dp"
-        android:background="@color/grey"
-        android:fontFamily="sans-serif" />
+        app:layout_constraintBottom_toTopOf="@+id/guidelineImageAndText"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndSignup"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartSignup"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopSignup" />
 
     <!-- Full Name Input -->
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/etFullName"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/full_name_field"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:hint="@string/full_name"
-        android:inputType="text"
-        android:layout_marginTop="16dp"
+        android:inputType="textPersonName"
         android:padding="12dp"
-        android:background="@color/grey"
-        android:fontFamily="sans-serif" />
+        android:backgroundTint="@color/white"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndSignup"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartSignup"
+        app:layout_constraintTop_toBottomOf="@id/logo_image" />
+
+    <!-- Email Input -->
+    <EditText
+        android:id="@+id/email_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndSignup"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartSignup"
+        app:layout_constraintTop_toBottomOf="@id/full_name_field" />
+
+    <!-- Password Input -->
+    <EditText
+        android:id="@+id/password_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndSignup"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartSignup"
+        app:layout_constraintTop_toBottomOf="@id/email_field" />
 
     <!-- Address Input -->
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/etAdress"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/address_field"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:hint="@string/address"
         android:inputType="textPostalAddress"
-        android:layout_marginTop="16dp"
         android:padding="12dp"
-        android:background="@color/grey"
-        android:fontFamily="sans-serif" />
+        android:backgroundTint="@color/white"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndSignup"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartSignup"
+        app:layout_constraintTop_toBottomOf="@id/password_field" />
 
     <!-- City Input -->
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/etCity"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/city_field"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:hint="@string/city"
         android:inputType="text"
-        android:layout_marginTop="16dp"
         android:padding="12dp"
-        android:background="@color/grey"
-        android:fontFamily="sans-serif" />
+        android:backgroundTint="@color/white"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndSignup"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartSignup"
+        app:layout_constraintTop_toBottomOf="@id/address_field" />
 
     <!-- Sign Up Button -->
     <Button
-        android:id="@+id/btnSignUp"
-        android:layout_width="match_parent"
+        android:id="@+id/signup_button"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/selected_color"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/white"
         android:text="@string/sign_up"
-        android:textColor="@color/white"
-        android:layout_marginTop="24dp"
-        android:padding="12dp" />
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndSignup"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartSignup"
+        app:layout_constraintTop_toBottomOf="@id/city_field" />
 
-    <!-- Login Redirect Link -->
+    <!-- Already Have Account -->
     <TextView
-        android:id="@+id/tvLogin"
+        android:height="48dp"
+        android:id="@+id/login_redirect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/already_have_account"
-        android:textColor="@color/selected_color"
+        android:clickable="true"
+        android:focusable="true"
+        android:textColor="@color/white"
         android:textSize="14sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndSignup"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartSignup"
+        app:layout_constraintTop_toBottomOf="@id/signup_button" />
 
-</LinearLayout>
+    <!-- Guidelines -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTopSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineImageAndText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEndSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.90" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStartSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.10" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
