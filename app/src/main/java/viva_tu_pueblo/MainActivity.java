@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Inicializar botones
         btnGoToLogin = findViewById(R.id.btnGoToLogin);
-        btnProfile = findViewById(R.id.btnProfile); // Asegúrate de que este botón esté definido en el XML
+        btnProfile = findViewById(R.id.btnProfile);
 
         // Configurar botones según estado de autenticación
         configureButtons();
