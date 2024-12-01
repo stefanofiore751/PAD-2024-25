@@ -2,12 +2,13 @@ package deffuncionalidadnoticias;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import Fragments.Notices_Fragment;
 
 public class PagerAdapter extends FragmentStateAdapter {
 
-    public PagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+    public PagerAdapter(@NonNull Notices_Fragment fragmentActivity) {
         super(fragmentActivity);
     }
 
