@@ -11,6 +11,8 @@ import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import es.ucm.fdi.viva_tu_pueblo.R;
+
 public class MainActivity extends AppCompatActivity {
 
     String api = "b5c1b7fd34d0448292156a799e4c0055";

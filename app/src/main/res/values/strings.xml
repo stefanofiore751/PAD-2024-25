@@ -30,5 +30,14 @@
     <string name="continuar_como_invitado">Continuar como invitado</string>
     <string name="no_tienes_pueblo">¿No tienes Pueblo!?</string>
     <string name="logo_image">logo_image</string>
+    <!--String used for news fragments-->
+    <string name="noticias">Noticias</string>
+    <string name="inicio">Inicio</string>
+    <string name="deportes">Deportes</string>
+    <string name="salud">Salud</string>
+    <string name="ciencia">Ciencia</string>
+    <string name="entretenimiento">Entretenimiento</string>
+    <string name="tecnologia">Tecnologia</string>
+    <string name="noticia_especifica">Noticia especifica</string>
 
 </resources>

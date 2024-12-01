@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import es.ucm.fdi.viva_tu_pueblo.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
