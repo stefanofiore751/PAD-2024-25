@@ -1,11 +1,13 @@
 package Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,14 +24,17 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Adapters.Events_Adapter;
 import Modelos.Event;
 import Modelos.User;
 import es.ucm.fdi.viva_tu_pueblo.R;
+import viva_tu_pueblo.LoginActivity;
 
-public class Perfil_Fragment extends Fragment {
+
+public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventClickListener {
 
     // Variables de la interfaz
     private FirebaseAuth mAuth;
@@ -39,6 +44,10 @@ public class Perfil_Fragment extends Fragment {
     private RecyclerView rvEventosReservados;
     private Events_Adapter eventosAdapter;
     private Button btnMostrarEventos;
+    private Button btnEditarDatos;
+    private Button btnCambiarContrasena;
+    private Button btnLogOut;
+    private ImageButton btnSalir;
 
     // Método constructor
     public Perfil_Fragment() {
@@ -58,12 +67,19 @@ public class Perfil_Fragment extends Fragment {
         // Inicialización de la interfaz
         rvEventosReservados = view.findViewById(R.id.rvEventosReservados);
         btnMostrarEventos = view.findViewById(R.id.btnReservedEvents);
+        btnCambiarContrasena = view.findViewById(R.id.btnChangePassword);
+        btnLogOut = view.findViewById(R.id.btnLogOut);
+        btnSalir = view.findViewById(R.id.salirButton);
 
         // Cargar los datos del usuario
         loadUserData(view); // Pasamos la vista para evitar problemas con getView()
 
-        // Lógica para mostrar eventos reservados cuando se presione el botón
+        btnLogOut.setOnClickListener(v -> logout());
+        btnCambiarContrasena.setOnClickListener(v -> cambiarContrasena());
         btnMostrarEventos.setOnClickListener(v -> showReservedEvents());
+        btnSalir.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().popBackStack();
+        });
 
         return view;
     }
@@ -131,7 +147,7 @@ public class Perfil_Fragment extends Fragment {
     }
 
     // Mostrar los eventos reservados del usuario
-    private void showReservedEvents() {
+    /*private void showReservedEvents() {
         if (actualUser == null) {
             Toast.makeText(getContext(), "Datos del usuario no disponibles", Toast.LENGTH_SHORT).show();
             return;
@@ -146,20 +162,53 @@ public class Perfil_Fragment extends Fragment {
 
         // Cargar los eventos desde Firestore usando los IDs de los eventos reservados
         db.collection("events")
-                .whereIn("id", eventosReservadosIds)
+                .whereIn("eventId", eventosReservadosIds)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    List<Event> eventosReservados = queryDocumentSnapshots.toObjects(Event.class);
+                    eventosReservados = queryDocumentSnapshots.toObjects(Event.class);
                     showInView(eventosReservados); // Mostrar los eventos en el RecyclerView
                 })
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al cargar eventos", Toast.LENGTH_SHORT).show());
+    }*/
+
+    // Mostrar los eventos reservados del usuario
+    private void showReservedEvents() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Toast.makeText(getContext(), "Usuario no autenticado", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String userEmail = currentUser.getEmail();
+        if (userEmail == null || userEmail.isEmpty()) {
+            Toast.makeText(getContext(), "Email del usuario no disponible", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Consultar eventos que contengan el correo del usuario actual en su atributo 'users'
+        db.collection("events")
+                .whereArrayContains("users", userEmail) // Busca en el array 'users' el email del usuario
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        List<Event> eventosReservados = queryDocumentSnapshots.toObjects(Event.class);
+                        showInView(eventosReservados); // Mostrar los eventos en el RecyclerView
+                    } else {
+                        Toast.makeText(getContext(), "No tienes eventos reservados", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Error al cargar eventos", e);
+                    Toast.makeText(getContext(), "Error al cargar eventos", Toast.LENGTH_SHORT).show();
+                });
     }
+
 
     // Mostrar los eventos en el RecyclerView
     private void showInView(List<Event> eventos) {
         rvEventosReservados.setVisibility(View.VISIBLE);
         rvEventosReservados.setLayoutManager(new LinearLayoutManager(getContext()));
-        eventosAdapter = new Events_Adapter(eventos, (Events_Adapter.OnEventClickListener) getContext());
+        eventosAdapter = new Events_Adapter(eventos, this);
         rvEventosReservados.setAdapter(eventosAdapter);
     }
 
@@ -171,7 +220,43 @@ public class Perfil_Fragment extends Fragment {
 
     // Método para cambiar contraseña (puedes agregar la lógica aquí)
     private void cambiarContrasena() {
-        // Lógica para cambiar contraseña
-        Toast.makeText(getContext(), "Cambiar contraseña", Toast.LENGTH_SHORT).show();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Toast.makeText(getContext(), "Usuario no autenticado", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String userEmail = currentUser.getEmail();
+        if (userEmail == null || userEmail.isEmpty()) {
+            Toast.makeText(getContext(), "No se puede enviar un correo de restablecimiento de contraseña. Email no encontrado.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mAuth.sendPasswordResetEmail(userEmail)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getContext(), "Correo de restablecimiento enviado a " + userEmail, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.e("Firebase", "Error al enviar el correo de restablecimiento", task.getException());
+                        Toast.makeText(getContext(), "Error al enviar el correo de restablecimiento de contraseña", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void logout() {
+        FirebaseAuth.getInstance().signOut(); // Cerrar sesión en FirebaseAuth
+        Toast.makeText(getContext(), "Sesión cerrada correctamente", Toast.LENGTH_SHORT).show();
+
+        // Redirigir al usuario a la pantalla de inicio de sesión
+        // Requiere la clase LoginActivity u otra actividad de inicio
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Eliminar historial de actividades
+        startActivity(intent);
+        requireActivity().finish(); // Finalizar la actividad actual
+    }
+
+    @Override
+    public void onEventClick(Event event) {
+        Toast.makeText(getContext(), "Evento seleccionado: " + event.getEventName() , Toast.LENGTH_SHORT).show();
     }
 }

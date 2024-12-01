@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context="viva_tu_pueblo.LoginActivity2">
+    tools:context="viva_tu_pueblo.LoginActivity">
 
     <!-- Imagen del logo -->
     <ImageView
