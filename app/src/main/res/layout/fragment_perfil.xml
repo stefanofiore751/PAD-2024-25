@@ -22,6 +22,18 @@
             android:padding="16dp">
 
             <!-- Foto de perfil -->
+
+            <ImageButton
+                android:id="@+id/salirButton"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/ic_salir"
+                android:contentDescription="Salir" />
+
             <ImageView
                 android:id="@+id/ivProfilePicture"
                 android:layout_width="100dp"

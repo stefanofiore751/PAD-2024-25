@@ -1,6 +1,5 @@
 package Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,8 +28,6 @@ import Adapters.Events_Adapter;
 import Modelos.Event;
 import Modelos.User;
 import es.ucm.fdi.viva_tu_pueblo.R;
-import viva_tu_pueblo.LoginActivity;
-import viva_tu_pueblo.LoginActivity2;
 
 public class Perfil_Fragment extends Fragment {
 
@@ -42,9 +39,6 @@ public class Perfil_Fragment extends Fragment {
     private RecyclerView rvEventosReservados;
     private Events_Adapter eventosAdapter;
     private Button btnMostrarEventos;
-    private Button btnEditarDatos;
-    private Button btnCambiarContrasena;
-    private Button btnLogOut;
 
     // Método constructor
     public Perfil_Fragment() {
@@ -64,16 +58,12 @@ public class Perfil_Fragment extends Fragment {
         // Inicialización de la interfaz
         rvEventosReservados = view.findViewById(R.id.rvEventosReservados);
         btnMostrarEventos = view.findViewById(R.id.btnReservedEvents);
-        btnCambiarContrasena = view.findViewById(R.id.btnChangePassword);
-        btnLogOut = view.findViewById(R.id.btnLogOut);
 
         // Cargar los datos del usuario
         loadUserData(view); // Pasamos la vista para evitar problemas con getView()
 
         // Lógica para mostrar eventos reservados cuando se presione el botón
         btnMostrarEventos.setOnClickListener(v -> showReservedEvents());
-        btnCambiarContrasena.setOnClickListener(v -> cambiarContrasena());
-        btnLogOut.setOnClickListener(v -> logout());
 
         return view;
     }
@@ -180,41 +170,8 @@ public class Perfil_Fragment extends Fragment {
     }
 
     // Método para cambiar contraseña (puedes agregar la lógica aquí)
-    // Método para cambiar contraseña
     private void cambiarContrasena() {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) {
-            Toast.makeText(getContext(), "Usuario no autenticado", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String userEmail = currentUser.getEmail();
-        if (userEmail == null || userEmail.isEmpty()) {
-            Toast.makeText(getContext(), "No se puede enviar un correo de restablecimiento de contraseña. Email no encontrado.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        mAuth.sendPasswordResetEmail(userEmail)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(getContext(), "Correo de restablecimiento enviado a " + userEmail, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Log.e("Firebase", "Error al enviar el correo de restablecimiento", task.getException());
-                        Toast.makeText(getContext(), "Error al enviar el correo de restablecimiento de contraseña", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        // Lógica para cambiar contraseña
+        Toast.makeText(getContext(), "Cambiar contraseña", Toast.LENGTH_SHORT).show();
     }
-
-    private void logout() {
-        FirebaseAuth.getInstance().signOut(); // Cerrar sesión en FirebaseAuth
-        Toast.makeText(getContext(), "Sesión cerrada correctamente", Toast.LENGTH_SHORT).show();
-
-        // Redirigir al usuario a la pantalla de inicio de sesión
-        // Requiere la clase LoginActivity u otra actividad de inicio
-        Intent intent = new Intent(getContext(), LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Eliminar historial de actividades
-        startActivity(intent);
-        requireActivity().finish(); // Finalizar la actividad actual
-    }
-
 }

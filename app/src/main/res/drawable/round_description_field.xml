@@ -3,7 +3,7 @@
     android:shape="rectangle">
 
     <!-- Esquinas redondeadas -->
-    <corners android:radius="360dp" />
+    <corners android:radius="60dp" />
 
     <!-- Fondo opcional (si no quieres que sea transparente) -->
     <solid android:color="@android:color/white" />

@@ -1,135 +1,151 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/white"
-    tools:context="es.ucm.fdi.viva_tu_pueblo.Fragments.EventDetail_Fragment">
+    android:background="#F2F2F2">
 
+    <!-- Botón de retroceso -->
+    <ImageButton
+        android:id="@+id/back_arrow"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/ic_back"
+        android:contentDescription="Atrás"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerInside"
+        android:backgroundTint="@color/black" />
 
-    <!-- Contenedor del botón de retroceso y el título -->
-    <LinearLayout
+    <!-- Contenedor del contenido del evento -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="16dp">
+        android:layout_margin="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="#B8BBAA"
+        app:cardUseCompatPadding="true"
+        android:layout_below="@id/back_arrow">
 
-        <!-- Flecha de retroceso -->
-        <ImageButton
-            android:id="@+id/back_arrow"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/ic_back"
-            android:backgroundTint="@color/black"
-            android:padding="8dp"
-            android:scaleX="0.5"
-            android:scaleY="0.5"
-            android:layout_marginEnd="8dp" />
-
-        <!-- Título del evento -->
-        <TextView
-            android:id="@+id/event_title"
-            android:layout_width="0dp"
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Título del Evento"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:gravity="center" />
-    </LinearLayout>
+            android:padding="16dp">
 
-    <!-- Información del evento -->
-    <ImageView
-        android:id="@+id/event_image"
-        android:layout_width="match_parent"
-        android:layout_height="41dp"
-        android:layout_weight="0.3"
-        android:background="@drawable/ic_image"
-        android:backgroundTint="@color/black"
-        android:scaleType="centerCrop"
-        android:scaleX="0.7"
-        android:scaleY="0.8" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <!-- Título del evento -->
+                <TextView
+                    android:id="@+id/event_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Título del Evento"
+                    android:textColor="#000000"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/round_text_view"
+                    android:paddingStart="16dp" />
+
+                <!-- Imagen del evento -->
+                <ImageView
+                    android:id="@+id/event_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:layout_marginBottom="16dp"
+                    android:src="@drawable/ic_image" />
+
+                <!-- Información del evento -->
+                <TextView
+                    android:id="@+id/event_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Precio: Gratis"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_marginBottom="8dp"
+                    android:textStyle="bold"
+                    android:background="@drawable/round_text_view"
+                    android:paddingStart="10dp" />
+
+                <TextView
+                    android:id="@+id/event_reservedSeats"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Reservas: 100"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_marginBottom="8dp"
+                    android:textStyle="bold"
+                    android:background="@drawable/round_text_view"
+                    android:paddingStart="10dp" />
+
+                <TextView
+                    android:id="@+id/event_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ubicación: Lugar de Ejemplo"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_marginBottom="8dp"
+                    android:textStyle="bold"
+                    android:background="@drawable/round_text_view"
+                    android:paddingStart="10dp" />
+
+                <TextView
+                    android:id="@+id/event_date_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha y Hora: 25 Nov, 2024 - 19:00"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_marginBottom="16dp"
+                    android:textStyle="bold"
+                    android:background="@drawable/round_text_view"
+                    android:paddingStart="10dp" />
+
+                <!-- Descripción -->
+                <TextView
+                    android:id="@+id/event_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción detallada del evento."
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:padding="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:textStyle="bold"
+                    android:background="@drawable/round_events_info"
+                    android:paddingStart="10dp" />
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Botón de Reservar en la parte inferior -->
     <LinearLayout
+        android:id="@+id/reserve_button_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/event_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Precio: Gratis"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/event_reservedSeats"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Reservas: 100"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/event_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ubicación: Lugar de Ejemplo"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/event_date_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fecha y Hora: 25 Nov, 2024 - 19:00"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <!-- Línea separadora -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#CCCCCC" />
-
-    <!-- Descripción -->
-    <TextView
-        android:id="@+id/event_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="Descripción detallada del evento."
-        android:textColor="@android:color/black"
-        android:textSize="16sp" />
-
-    <!-- Línea separadora -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#CCCCCC" />
-
-    <!-- Botón reservar centrado -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
+
         <Button
             android:id="@+id/reserve_button"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/black"
             android:text="Reservar"
-            android:textColor="@color/white"/>
+            android:textColor="#FFFFFF"
+            android:backgroundTint="@color/black" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -91,24 +92,31 @@ public class MainActivity extends AppCompatActivity {
 
     private final BottomNavigationView.OnItemSelectedListener mOnNavigationItemSelectedListener =
             item -> {
+                TextView headerTitle = findViewById(R.id.header_title);
                 switch (item.getItemId()) {
                     case R.id.nav_home:
                         loadFragment(homeFragment);
+                        // Obtener el TextView de la cabecera
+                        headerTitle.setText("Home");
                         return true;
 
                     case R.id.nav_news:
+                        headerTitle.setText("Noticias");
                         loadFragment(noticesFragment);
                         return true;
 
                     case R.id.nav_incidents:
+                        headerTitle.setText("Incidetes");
                         loadFragment(incidentsFragment);
                         return true;
 
                     case R.id.nav_routes:
+                        headerTitle.setText("Rutas");
                         loadFragment(routesFragment);
                         return true;
 
                     case R.id.nav_events:
+                        headerTitle.setText("Eventos");
                         loadFragment(eventsFragment);
                         return true;
                 }
