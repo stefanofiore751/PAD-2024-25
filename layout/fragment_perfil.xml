@@ -1,0 +1,217 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F2F2F2">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mainCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="#B8BBAA"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Contenedor de pestañas y botón Salir -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="start|top"
+                android:padding="8dp">
+
+                <!-- Botón de salir (parte compartida) -->
+                <ImageButton
+                    android:id="@+id/salirButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="end"
+                    android:background="@drawable/ic_salir"
+                    android:contentDescription="@string/salir" />
+
+                <!-- Contenedor de pestañas -->
+                <LinearLayout
+                    android:id="@+id/tabContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:padding="8dp">
+
+                    <Button
+                        android:id="@+id/tabMisDatos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mis_datos"
+                        android:backgroundTint="#6200EE"
+                        android:textColor="#FFFFFF"
+                        android:layout_marginEnd="8dp"
+                        android:padding="8dp" />
+
+                    <Button
+                        android:id="@+id/tabMisEventos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mis_eventos"
+                        android:backgroundTint="#BBBBBB"
+                        android:textColor="#FFFFFF"
+                        android:padding="8dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Contenedor para la parte delantera y trasera -->
+            <FrameLayout
+                android:id="@+id/cardContentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <!-- Parte delantera del CardView -->
+                <LinearLayout
+                    android:id="@+id/cardFront"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <!-- Foto de perfil -->
+                    <ImageView
+                        android:id="@+id/ivProfilePicture"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/profile_picture"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_perfil2"
+                        android:background="@drawable/round_image"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Nombre del usuario -->
+                    <TextView
+                        android:id="@+id/tvFullName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nombre_del_usuario"
+                        android:textSize="18sp"
+                        android:textColor="#000000"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/round_text_view"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:enabled="false"/>
+
+                    <!-- Email -->
+                    <TextView
+                        android:id="@+id/tvEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email_example_com"
+                        android:textSize="14sp"
+                        android:textColor="#333333"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/round_text_view"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:enabled="false"/>
+
+                    <!-- Dirección -->
+                    <TextView
+                        android:id="@+id/tvAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/calle_ejemplo_ciudad"
+                        android:textSize="14sp"
+                        android:textColor="#333333"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/round_text_view"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:enabled="false"/>
+
+                    <!-- Ciudad -->
+                    <TextView
+                        android:id="@+id/tvCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ciudad"
+                        android:textSize="14sp"
+                        android:textColor="#333333"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/round_text_view"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:enabled="false"/>
+
+                    <!-- Botones -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="16dp">
+
+                        <Button
+                            android:id="@+id/btnEditPersonalInfo"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:backgroundTint="@color/black"
+                            android:drawablePadding="8dp"
+                            android:text="@string/editar"
+                            android:textColor="#FFFFFF" />
+
+                        <Button
+                            android:id="@+id/btnChangePassword"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:backgroundTint="@color/black"
+                            android:drawablePadding="8dp"
+                            android:text="@string/cambiar_contrase_a"
+                            android:textColor="#FFFFFF" />
+
+                        <Button
+                            android:id="@+id/btnLogOut"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:backgroundTint="@color/black"
+                            android:text="@string/log_out"
+                            android:textColor="#FFFFFF" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Parte trasera del CardView -->
+                <LinearLayout
+                    android:id="@+id/cardBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvEventosReservados"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</ScrollView>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Incidencia">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="129dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="28dp"
+        android:hint="Reporte"
+        android:text="Incidencias"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/AsuntoView"
+        android:layout_width="67dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="60dp"
+        android:text="Asunto"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/asuntoText"
+        android:layout_width="266dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="16dp"
+        android:hint="Asunto"
+        android:gravity="start"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/AsuntoView"
+        app:layout_constraintTop_toBottomOf="@+id/AsuntoView" />
+
+    <Button
+        android:id="@+id/foto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="152dp"
+        android:onClick="foto"
+        android:text="Foto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descripcionText" />
+
+    <TextView
+        android:id="@+id/descripcionView"
+        android:layout_width="123dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="20dp"
+        android:text="Descripcion"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/asuntoText"
+        app:layout_constraintTop_toBottomOf="@+id/asuntoText" />
+
+    <EditText
+        android:id="@+id/descripcionText"
+        android:layout_width="265dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="20dp"
+        android:gravity="start"
+        android:hint="Descripcion"
+        app:layout_constraintStart_toStartOf="@+id/descripcionView"
+        app:layout_constraintTop_toBottomOf="@+id/descripcionView" />
+
+    <Button
+        android:id="@+id/enviar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginBottom="96dp"
+        android:onClick="enviar"
+        android:text="Enviar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
