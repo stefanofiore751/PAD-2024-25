@@ -42,22 +42,22 @@ public class Notices_Fragment extends Fragment {
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
                 case 0:
-                    tab.setText("Inicio");
+                    tab.setText(R.string.inicio);
                     break;
                 case 1:
-                    tab.setText("Deportes");
+                    tab.setText(R.string.deportes);
                     break;
                 case 2:
-                    tab.setText("Salud");
+                    tab.setText(R.string.salud);
                     break;
                 case 3:
-                    tab.setText("Ciencia");
+                    tab.setText(R.string.ciencia);
                     break;
                 case 4:
-                    tab.setText("Entretenimiento");
+                    tab.setText(R.string.entretenimiento);
                     break;
                 case 5:
-                    tab.setText("Tecnología");
+                    tab.setText(R.string.tecnologia);
                     break;
             }
         }).attach();

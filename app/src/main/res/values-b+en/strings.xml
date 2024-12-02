@@ -51,4 +51,10 @@
     <string name="editar">Edit</string>
     <string name="cambiar_contrase_a">Change Password</string>
     <string name="log_out">Log Out</string>
+    <string name="Inicio">Start</string>
+    <string name="Deportes">Sport</string>
+    <string name="Salud">Health</string>
+    <string name="Ciencia">Science</string>
+    <string name="Entretenimento">Entertainment</string>
+    <string name="Tecnologia">Technology</string>
 </resources>

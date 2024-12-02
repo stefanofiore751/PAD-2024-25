@@ -55,4 +55,10 @@
     <string name="editar">Editar</string>
     <string name="cambiar_contrase_a">Cambiar contraseña</string>
     <string name="log_out">Log Out</string>
+    <string name="Inicio">Inicio</string>
+    <string name="Deportes">Deportes</string>
+    <string name="Salud">Salud</string>
+    <string name="Ciencia">Ciencia</string>
+    <string name="Entretenimento">Entretenimento</string>
+    <string name="Tecnologia">Tecnologia</string>
 </resources>
