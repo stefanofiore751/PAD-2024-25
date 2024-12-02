@@ -1,4 +1,5 @@
 package viva_tu_pueblo;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -29,10 +30,11 @@ public class MainActivity extends AppCompatActivity {
     private final Home_Fragment homeFragment = new Home_Fragment();
     private final Routes_Fragment routesFragment = new Routes_Fragment();
     private final Events_Fragment eventsFragment = new Events_Fragment();
+    private static final String SELECTED_FRAGMENT = "selected_fragment";
+    private Fragment currentFragment;
 
     private ImageButton btnGoToLogin, btnProfile, back_arrow;
     private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+
         btnGoToLogin = findViewById(R.id.btnGoToLogin);
         btnProfile = findViewById(R.id.btnProfile);
         back_arrow = findViewById(R.id.back_arrow);
@@ -48,20 +51,27 @@ public class MainActivity extends AppCompatActivity {
         // Configurar botones según estado de autenticación
         configureButtons();
 
-        // Configurar el listener del botón de retroceso para manejar el retroceso
-        back_arrow.setOnClickListener(v -> onBackPressed());
-
         // Configurar barra de navegación inferior
         BottomNavigationView navBarBottom = findViewById(R.id.bottomNavigationView);
-        navBarBottom.setSelectedItemId(R.id.nav_home);
         navBarBottom.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        loadFragment(homeFragment);
-
+        if (savedInstanceState != null) {
+            currentFragment = getSupportFragmentManager().getFragment(savedInstanceState, SELECTED_FRAGMENT);
+            loadFragment(currentFragment);
+            syncNavBarWithFragment(currentFragment);
+        } else {
+            currentFragment = homeFragment;
+            loadFragment(homeFragment);
+            navBarBottom = findViewById(R.id.bottomNavigationView);
+            navBarBottom.setSelectedItemId(R.id.nav_home);
+        }
     }
 
-    
-
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSupportFragmentManager().putFragment(outState, SELECTED_FRAGMENT, currentFragment);
+    }
 
     private void configureButtons() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -93,38 +103,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private final BottomNavigationView.OnItemSelectedListener mOnNavigationItemSelectedListener =
             item -> {
                 TextView headerTitle = findViewById(R.id.header_title);
                 switch (item.getItemId()) {
                     case R.id.nav_home:
-                        loadFragment(homeFragment);
-                        // Obtener el TextView de la cabecera
-                        headerTitle.setText("Home");
-                        return true;
-
+                        currentFragment = homeFragment;
+                        headerTitle.setText(R.string.homepage);
+                        break;
                     case R.id.nav_news:
-                        headerTitle.setText("Noticias");
-                        loadFragment(noticesFragment);
-                        return true;
-
+                        currentFragment = noticesFragment;
+                        headerTitle.setText(R.string.noticias);
+                        break;
                     case R.id.nav_incidents:
-                        headerTitle.setText("Incidetes");
-                        loadFragment(incidentsFragment);
-                        return true;
-
+                        currentFragment = incidentsFragment;
+                        headerTitle.setText(R.string.incidentes);
+                        break;
                     case R.id.nav_routes:
-                        headerTitle.setText("Rutas");
-                        loadFragment(routesFragment);
-                        return true;
-
+                        currentFragment = routesFragment;
+                        headerTitle.setText(R.string.rutas);
+                        break;
                     case R.id.nav_events:
-                        headerTitle.setText("Eventos");
-                        loadFragment(eventsFragment);
-                        return true;
+                        currentFragment = eventsFragment;
+                        headerTitle.setText(R.string.eventos);
+                        break;
+                    default:
+                        return false;
                 }
-                return false;
+                loadFragment(currentFragment);
+                return true;
             };
 
     private void loadFragment(Fragment fragment) {
@@ -141,14 +148,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Método para manejar el retroceso
-    public void onBackPressed() {
-        // Verifica si hay fragmentos en el back stack
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            setBackArrowVisibility(View.GONE);
-            getSupportFragmentManager().popBackStack();  // Vuelve al fragment anterior
-        } else {
-            super.onBackPressed();  // Si no hay fragmentos, realiza la acción por defecto
+
+    private void syncNavBarWithFragment(Fragment fragment) {
+        BottomNavigationView navBarBottom = findViewById(R.id.bottomNavigationView);
+
+        if (fragment instanceof Home_Fragment) {
+            navBarBottom.setSelectedItemId(R.id.nav_home);
+        } else if (fragment instanceof Notices_Fragment) {
+            navBarBottom.setSelectedItemId(R.id.nav_news);
+        } else if (fragment instanceof Incidents_Fragment) {
+            navBarBottom.setSelectedItemId(R.id.nav_incidents);
+        } else if (fragment instanceof Routes_Fragment) {
+            navBarBottom.setSelectedItemId(R.id.nav_routes);
+        } else if (fragment instanceof Events_Fragment) {
+            navBarBottom.setSelectedItemId(R.id.nav_events);
         }
     }
+
 }

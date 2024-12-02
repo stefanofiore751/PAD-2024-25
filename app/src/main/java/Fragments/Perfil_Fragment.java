@@ -93,6 +93,9 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
         // Configurar colores iniciales de las pestañas
         updateTabStyles(false);
 
+        loadUserData(view);
+
+
         // Cargar los datos del usuario
         btnLogOut.setOnClickListener(v -> logout());
         btnCambiarContrasena.setOnClickListener(v -> cambiarContrasena());
