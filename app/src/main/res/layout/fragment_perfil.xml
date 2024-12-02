@@ -30,16 +30,16 @@
                 <!-- Botón de salir (parte compartida) -->
                 <ImageButton
                     android:id="@+id/salirButton"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_gravity="end"
                     android:background="@drawable/ic_salir"
-                    android:contentDescription="Salir" />
+                    android:contentDescription="@string/salir" />
 
                 <!-- Contenedor de pestañas -->
                 <LinearLayout
                     android:id="@+id/tabContainer"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center"
@@ -50,7 +50,7 @@
                         android:id="@+id/tabMisDatos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mis Datos"
+                        android:text="@string/mis_datos"
                         android:backgroundTint="#6200EE"
                         android:textColor="#FFFFFF"
                         android:layout_marginEnd="8dp"
@@ -60,7 +60,7 @@
                         android:id="@+id/tabMisEventos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mis Eventos"
+                        android:text="@string/mis_eventos"
                         android:backgroundTint="#BBBBBB"
                         android:textColor="#FFFFFF"
                         android:padding="8dp" />
@@ -88,6 +88,7 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center"
+                        android:contentDescription="@string/profile_picture"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_perfil2"
                         android:background="@drawable/round_image"
@@ -99,7 +100,7 @@
                         android:id="@+id/tvFullName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nombre del usuario"
+                        android:text="@string/nombre_del_usuario"
                         android:textSize="18sp"
                         android:textColor="#000000"
                         android:gravity="center"
@@ -115,7 +116,7 @@
                         android:id="@+id/tvEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="email@example.com"
+                        android:text="@string/email_example_com"
                         android:textSize="14sp"
                         android:textColor="#333333"
                         android:gravity="center"
@@ -131,7 +132,7 @@
                         android:id="@+id/tvAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Calle Ejemplo, Ciudad"
+                        android:text="@string/calle_ejemplo_ciudad"
                         android:textSize="14sp"
                         android:textColor="#333333"
                         android:gravity="center"
@@ -147,7 +148,7 @@
                         android:id="@+id/tvCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Ciudad"
+                        android:text="@string/ciudad"
                         android:textSize="14sp"
                         android:textColor="#333333"
                         android:gravity="center"
@@ -173,7 +174,7 @@
                             android:layout_marginBottom="16dp"
                             android:backgroundTint="@color/black"
                             android:drawablePadding="8dp"
-                            android:text="Editar"
+                            android:text="@string/editar"
                             android:textColor="#FFFFFF" />
 
                         <Button
@@ -183,7 +184,7 @@
                             android:layout_marginBottom="16dp"
                             android:backgroundTint="@color/black"
                             android:drawablePadding="8dp"
-                            android:text="Cambiar contraseña"
+                            android:text="@string/cambiar_contrase_a"
                             android:textColor="#FFFFFF" />
 
                         <Button
@@ -192,7 +193,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
                             android:backgroundTint="@color/black"
-                            android:text="Log Out"
+                            android:text="@string/log_out"
                             android:textColor="#FFFFFF" />
                     </LinearLayout>
                 </LinearLayout>

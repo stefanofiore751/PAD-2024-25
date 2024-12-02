@@ -39,5 +39,20 @@
     <string name="entretenimiento">Entretenimiento</string>
     <string name="tecnologia">Tecnologia</string>
     <string name="noticia_especifica">Noticia especifica</string>
-
+    <string name="homepage" translatable="false">Home</string>
+    <string name="abrir_calendario">Abrir calendario</string>
+    <string name="incidentes">Incidentes</string>
+    <string name="rutas">Rutas</string>
+    <string name="eventos">Eventos</string>
+    <string name="salir">Salir</string>
+    <string name="mis_datos">Mis Datos</string>
+    <string name="mis_eventos">Mis Eventos</string>
+    <string name="profile_picture">profile_picture</string>
+    <string name="nombre_del_usuario">Nombre del usuario</string>
+    <string name="email_example_com">email@example.com</string>
+    <string name="calle_ejemplo_ciudad">Calle Ejemplo, Ciudad</string>
+    <string name="ciudad">Ciudad</string>
+    <string name="editar">Editar</string>
+    <string name="cambiar_contrase_a">Cambiar contraseña</string>
+    <string name="log_out">Log Out</string>
 </resources>

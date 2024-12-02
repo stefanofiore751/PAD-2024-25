@@ -109,23 +109,23 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.nav_home:
                         currentFragment = homeFragment;
-                        headerTitle.setText("Home");
+                        headerTitle.setText(R.string.homepage);
                         break;
                     case R.id.nav_news:
                         currentFragment = noticesFragment;
-                        headerTitle.setText("Noticias");
+                        headerTitle.setText(R.string.noticias);
                         break;
                     case R.id.nav_incidents:
                         currentFragment = incidentsFragment;
-                        headerTitle.setText("Incidentes");
+                        headerTitle.setText(R.string.incidentes);
                         break;
                     case R.id.nav_routes:
                         currentFragment = routesFragment;
-                        headerTitle.setText("Rutas");
+                        headerTitle.setText(R.string.rutas);
                         break;
                     case R.id.nav_events:
                         currentFragment = eventsFragment;
-                        headerTitle.setText("Eventos");
+                        headerTitle.setText(R.string.eventos);
                         break;
                     default:
                         return false;
