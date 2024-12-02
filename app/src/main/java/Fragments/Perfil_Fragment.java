@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,7 +31,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Adapters.Events_Adapter;
 import Modelos.Event;
@@ -46,7 +50,6 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
 
     private RecyclerView rvEventosReservados;
     private Events_Adapter eventosAdapter;
-    private Button btnMostrarEventos;
     private Button btnEditarDatos;
     private Button btnCambiarContrasena;
     private Button btnLogOut;
@@ -74,6 +77,7 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
         btnCambiarContrasena = view.findViewById(R.id.btnChangePassword);
         btnLogOut = view.findViewById(R.id.btnLogOut);
         btnSalir = view.findViewById(R.id.salirButton);
+        btnEditarDatos = view.findViewById(R.id.btnEditPersonalInfo);
 
         // Inicializar vistas
         cardFront = view.findViewById(R.id.cardFront);
@@ -95,6 +99,7 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
         btnSalir.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
+        btnEditarDatos.setOnClickListener(v -> showEditDialog());
 
         return view;
     }
@@ -289,4 +294,99 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
     public void onEventClick(Event event) {
         Toast.makeText(getContext(), "Evento seleccionado: " + event.getEventName() , Toast.LENGTH_SHORT).show();
     }
+
+
+
+    private void showEditDialog() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Toast.makeText(getContext(), "Usuario no autenticado", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String userId = currentUser.getUid();
+        DocumentReference userRef = db.collection("user").document(userId);
+
+        // Recuperar el diseño del diálogo
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View dialogView = inflater.inflate(R.layout.dialog_edit_user_data, null);
+
+        // Inicializar los campos
+        EditText edtFullName = dialogView.findViewById(R.id.edtFullName);
+        EditText edtEmail = dialogView.findViewById(R.id.edtEmail);
+        EditText edtAddress = dialogView.findViewById(R.id.edtAddress);
+        EditText edtCity = dialogView.findViewById(R.id.edtCity);
+
+        AlertDialog dialog = new AlertDialog.Builder(getContext())
+                .setView(dialogView)
+                .setPositiveButton("Guardar", (dialogInterface, which) -> {
+                    // Obtener valores del usuario
+                    String fullName = edtFullName.getText().toString().trim();
+                    String email = edtEmail.getText().toString().trim();
+                    String address = edtAddress.getText().toString().trim();
+                    String city = edtCity.getText().toString().trim();
+
+                    if (validateFields(fullName, email, address, city)) {
+                        updateUserData(fullName, email, address, city);
+                    } else {
+                        Toast.makeText(getContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancelar", null)
+                .create();
+
+        // Recuperar los datos del usuario desde Firebase y asignarlos al diálogo
+        userRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                edtFullName.setText(documentSnapshot.getString("fullName"));
+                edtEmail.setText(documentSnapshot.getString("email"));
+                edtAddress.setText(documentSnapshot.getString("address"));
+                edtCity.setText(documentSnapshot.getString("city"));
+            } else {
+                Toast.makeText(getContext(), "Usuario no encontrado", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(e -> {
+            Log.e("Firebase", "Error al cargar los datos del usuario", e);
+            Toast.makeText(getContext(), "Error al cargar los datos", Toast.LENGTH_SHORT).show();
+        });
+
+        dialog.show();
+    }
+
+    private boolean validateFields(String fullName, String email, String address, String city) {
+        return !(fullName.isEmpty() || email.isEmpty() || address.isEmpty() || city.isEmpty());
+    }
+
+
+    // Método para actualizar campos específicos del usuario en Firebase
+    private void updateUserData(String fullName, String email, String address, String city) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Toast.makeText(getContext(), "Usuario no autenticado", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String userId = currentUser.getUid();
+        DocumentReference userRef = db.collection("user").document(userId);
+
+        // Crear un mapa con los campos a actualizar
+        Map<String, Object> updatedFields = new HashMap<>();
+        updatedFields.put("fullName", fullName);
+        updatedFields.put("email", email);
+        updatedFields.put("address", address);
+        updatedFields.put("city", city);
+
+        // Actualizar los campos específicos en Firestore
+        userRef.update(updatedFields)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(getContext(), "Datos actualizados correctamente", Toast.LENGTH_SHORT).show();
+                    loadUserData(getView()); // Recargar los datos del usuario en la interfaz
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firebase", "Error al actualizar los datos", e);
+                    Toast.makeText(getContext(), "Error al actualizar los datos", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+
 }

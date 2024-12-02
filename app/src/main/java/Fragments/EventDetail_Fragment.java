@@ -36,7 +36,6 @@ public class EventDetail_Fragment extends Fragment {
     private TextView eventTitle, eventPrice, eventLocation, eventDateTime, eventDescription, eventReservas;
     private ImageView eventImage;
     private Button reserveButton;
-    private ImageButton backArrow;
     private User actualUsr;
     private FirebaseFirestore db;
     private String eventId; // Identificador único del evento en Firestore
@@ -60,7 +59,6 @@ public class EventDetail_Fragment extends Fragment {
         eventDescription = view.findViewById(R.id.event_description);
         eventImage = view.findViewById(R.id.event_image);
         reserveButton = view.findViewById(R.id.reserve_button);
-        //backArrow = view.findViewById(R.id.back_arrow);
 
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).setBackArrowVisibility(View.VISIBLE);
@@ -74,13 +72,6 @@ public class EventDetail_Fragment extends Fragment {
             eventId = getArguments().getString("eventId");
             loadEventDetails(eventId);
         }
-
-        /*backArrow.setOnClickListener(v -> {
-            // Llamar al método onBackPressed() de la actividad para retroceder
-            if (getActivity() instanceof MainActivity) {
-                ((MainActivity) getActivity()).onBackPressed();  // Vuelve a la pantalla anterior
-            }
-        });*/
 
         return view;
     }

@@ -105,7 +105,10 @@
                         android:gravity="center"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"
-                        android:background="@drawable/round_text_view" />
+                        android:background="@drawable/round_text_view"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:enabled="false"/>
 
                     <!-- Email -->
                     <TextView
@@ -118,7 +121,10 @@
                         android:gravity="center"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"
-                        android:background="@drawable/round_text_view" />
+                        android:background="@drawable/round_text_view"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:enabled="false"/>
 
                     <!-- Dirección -->
                     <TextView
@@ -131,7 +137,10 @@
                         android:gravity="center"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"
-                        android:background="@drawable/round_text_view" />
+                        android:background="@drawable/round_text_view"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:enabled="false"/>
 
                     <!-- Ciudad -->
                     <TextView
@@ -144,7 +153,10 @@
                         android:gravity="center"
                         android:textStyle="bold"
                         android:layout_marginBottom="16dp"
-                        android:background="@drawable/round_text_view" />
+                        android:background="@drawable/round_text_view"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:enabled="false"/>
 
                     <!-- Botones -->
                     <LinearLayout
