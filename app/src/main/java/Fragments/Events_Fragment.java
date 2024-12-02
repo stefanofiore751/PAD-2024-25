@@ -146,42 +146,6 @@ public class Events_Fragment extends Fragment {
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al cargar eventos", Toast.LENGTH_SHORT).show());
     }
 
-    // Buscar eventos por nombre, fecha o ambos criterios
-    /*private void searchEvents(String query) {
-        db.collection("events")
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (queryDocumentSnapshots == null || queryDocumentSnapshots.isEmpty()) {
-                        Log.w("Firestore", "No se encontraron eventos que coincidan con la búsqueda.");
-                        eventList.clear();
-                        if (adapter != null) adapter.notifyDataSetChanged();
-                        return;
-                    }
-                    eventList.clear();
-
-                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                        try {
-                            Event event = document.toObject(Event.class);
-                            String eventName = event.getEventName();
-                            String eventDate = event.getEventDate();
-
-                            boolean matchesName = query != null && eventName.toLowerCase().contains(query.toLowerCase());
-                            boolean matchesDate = selectedDate != null && eventDate.equals(selectedDate);
-
-                            if (matchesName || matchesDate) { // Si cumple cualquier criterio
-                                event.setEventId(document.getId());
-                                eventList.add(event);
-                            }
-                        } catch (Exception e) {
-                            Log.e("Firestore", "Error al mapear el documento a un objeto Event: ", e);
-                        }
-                    }
-
-                    if (adapter != null) adapter.notifyDataSetChanged();
-                })
-                .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al buscar eventos", Toast.LENGTH_SHORT).show());
-    }*/
-
 
     // Buscar eventos por nombre, fecha o ambos criterios
     private void searchEvents(String query) {
