@@ -17,19 +17,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import Adapters.Events_Adapter;
 import Modelos.Event;
@@ -80,7 +80,7 @@ public class Home_Fragment extends Fragment {
     }
 
     private void fetchWeatherData(String city) {
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+        RequestQueue queue = Volley.newRequestQueue(requireContext());
         String url = WEATHER_API_URL.replace("{CITY}", city);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -120,7 +120,7 @@ public class Home_Fragment extends Fragment {
                 0, 0, ImageView.ScaleType.CENTER_CROP, Bitmap.Config.ARGB_8888,
                 error -> Log.e("WeatherIconError", "Error cargando el ícono", error));
 
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+        RequestQueue queue = Volley.newRequestQueue(requireContext());
         queue.add(imageRequest);
     }
 
@@ -149,10 +149,27 @@ public class Home_Fragment extends Fragment {
                 .limit(10)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    eventsList.clear();
-                    eventsList.addAll(queryDocumentSnapshots.toObjects(Event.class));
-                    eventsAdapter.notifyDataSetChanged();
+                    if (queryDocumentSnapshots == null || queryDocumentSnapshots.isEmpty()) {
+                        Log.w("Firestore", "No se encontraron eventos en la colección 'events'.");
+                        return;
+                    }
+
+                    eventsList.clear(); // Evita duplicati
+
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        try {
+                            Event event = document.toObject(Event.class);
+                            event.setEventId(document.getId()); // Imposta l'ID dell'evento
+                            eventsList.add(event);
+                            Log.d("Firestore", "Evento cargado: " + event.getEventName());
+                        } catch (Exception e) {
+                            Log.e("Firestore", "Error al mapear el documento a un objeto Event: ", e);
+                        }
+                    }
+
+                    eventsAdapter.notifyDataSetChanged(); // Notifica l'adapter
                 })
-                .addOnFailureListener(e -> Log.e("EventsError", "Error cargando eventos", e));
+                .addOnFailureListener(e -> Log.e("Firestore", "Error al cargar eventos", e));
     }
+
 }
