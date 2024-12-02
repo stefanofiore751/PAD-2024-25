@@ -1,6 +1,11 @@
 package Fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +26,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -32,7 +36,6 @@ import Modelos.Event;
 import Modelos.User;
 import es.ucm.fdi.viva_tu_pueblo.R;
 import viva_tu_pueblo.LoginActivity;
-
 
 public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventClickListener {
 
@@ -48,6 +51,9 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
     private Button btnCambiarContrasena;
     private Button btnLogOut;
     private ImageButton btnSalir;
+    private View cardFront, cardBack;
+    private Button tabMisDatos, tabMisEventos;
+    private boolean isBackVisible = false;
 
     // Método constructor
     public Perfil_Fragment() {
@@ -65,23 +71,84 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
         db = FirebaseFirestore.getInstance();
 
         // Inicialización de la interfaz
-        rvEventosReservados = view.findViewById(R.id.rvEventosReservados);
-        btnMostrarEventos = view.findViewById(R.id.btnReservedEvents);
         btnCambiarContrasena = view.findViewById(R.id.btnChangePassword);
         btnLogOut = view.findViewById(R.id.btnLogOut);
         btnSalir = view.findViewById(R.id.salirButton);
 
-        // Cargar los datos del usuario
-        loadUserData(view); // Pasamos la vista para evitar problemas con getView()
+        // Inicializar vistas
+        cardFront = view.findViewById(R.id.cardFront);
+        cardBack = view.findViewById(R.id.cardBack);
+        rvEventosReservados = cardBack.findViewById(R.id.rvEventosReservados);
+        tabMisDatos = view.findViewById(R.id.tabMisDatos);
+        tabMisEventos = view.findViewById(R.id.tabMisEventos);
 
+        // Configurar clics en los botones de las pestañas
+        tabMisDatos.setOnClickListener(v -> flipCard(false));
+        tabMisEventos.setOnClickListener(v -> flipCard(true));
+
+        // Configurar colores iniciales de las pestañas
+        updateTabStyles(false);
+
+        // Cargar los datos del usuario
         btnLogOut.setOnClickListener(v -> logout());
         btnCambiarContrasena.setOnClickListener(v -> cambiarContrasena());
-        btnMostrarEventos.setOnClickListener(v -> showReservedEvents());
         btnSalir.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
 
         return view;
+    }
+
+    // Método para girar el CardView
+    private void flipCard(boolean showBack) {
+        if (isBackVisible == showBack) return;
+
+        AnimatorSet flipAnimation = new AnimatorSet();
+        Animator flipOut = AnimatorInflater.loadAnimator(getContext(), R.animator.card_flip_out);
+        Animator flipIn = AnimatorInflater.loadAnimator(getContext(), R.animator.card_flip_in);
+
+        if (showBack) {
+            flipOut.setTarget(cardFront);
+            flipIn.setTarget(cardBack);
+            cardBack.setVisibility(View.VISIBLE);
+            showReservedEvents();
+        } else {
+            flipOut.setTarget(cardBack);
+            flipIn.setTarget(cardFront);
+            cardFront.setVisibility(View.VISIBLE);
+            loadUserData(getView());
+        }
+
+        flipAnimation.playSequentially(flipOut, flipIn);
+        flipAnimation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (showBack) {
+                    cardFront.setVisibility(View.GONE);
+                } else {
+                    cardBack.setVisibility(View.GONE);
+                }
+                isBackVisible = showBack;
+            }
+        });
+
+        flipAnimation.start();
+        updateTabStyles(showBack);
+    }
+
+    // Actualizar estilos de los botones de las pestañas
+    private void updateTabStyles(boolean showBack) {
+        if (showBack) {
+            tabMisDatos.setBackgroundColor(Color.BLACK);
+            tabMisDatos.setTextColor(Color.WHITE);
+            tabMisEventos.setBackgroundColor(Color.parseColor("#B8BBAA"));
+            tabMisEventos.setTextColor(Color.BLACK);
+        } else {
+            tabMisDatos.setBackgroundColor(Color.parseColor("#B8BBAA"));
+            tabMisDatos.setTextColor(Color.BLACK);
+            tabMisEventos.setBackgroundColor(Color.BLACK);
+            tabMisEventos.setTextColor(Color.WHITE);
+        }
     }
 
     private void loadUserData(View view) {
@@ -122,7 +189,6 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
                 });
     }
 
-
     private void updateUI(View view) {
         if (actualUser == null) {
             Toast.makeText(getContext(), "Datos del usuario no disponibles", Toast.LENGTH_SHORT).show();
@@ -146,32 +212,6 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
         ivProfilePicture.setImageResource(R.drawable.ic_perfil2);
     }
 
-    // Mostrar los eventos reservados del usuario
-    /*private void showReservedEvents() {
-        if (actualUser == null) {
-            Toast.makeText(getContext(), "Datos del usuario no disponibles", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Obtener los eventos reservados
-        List<String> eventosReservadosIds = actualUser.getReservedEvents(); // Se usa 'actualUser' en lugar de 'usuarioActual'
-        if (eventosReservadosIds == null || eventosReservadosIds.isEmpty()) {
-            Toast.makeText(getContext(), "No hay eventos reservados", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Cargar los eventos desde Firestore usando los IDs de los eventos reservados
-        db.collection("events")
-                .whereIn("eventId", eventosReservadosIds)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    eventosReservados = queryDocumentSnapshots.toObjects(Event.class);
-                    showInView(eventosReservados); // Mostrar los eventos en el RecyclerView
-                })
-                .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al cargar eventos", Toast.LENGTH_SHORT).show());
-    }*/
-
-    // Mostrar los eventos reservados del usuario
     private void showReservedEvents() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
@@ -185,37 +225,27 @@ public class Perfil_Fragment extends Fragment implements Events_Adapter.OnEventC
             return;
         }
 
-        // Consultar eventos que contengan el correo del usuario actual en su atributo 'users'
         db.collection("events")
-                .whereArrayContains("users", userEmail) // Busca en el array 'users' el email del usuario
+                .whereArrayContains("users", userEmail)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (!queryDocumentSnapshots.isEmpty()) {
                         List<Event> eventosReservados = queryDocumentSnapshots.toObjects(Event.class);
-                        showInView(eventosReservados); // Mostrar los eventos en el RecyclerView
+                        showInView(eventosReservados);
                     } else {
-                        Toast.makeText(getContext(), "No tienes eventos reservados", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "No hay eventos reservados", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(e -> {
-                    Log.e("Firestore", "Error al cargar eventos", e);
-                    Toast.makeText(getContext(), "Error al cargar eventos", Toast.LENGTH_SHORT).show();
+                    Log.e("Firestore", "Error al obtener los eventos reservados", e);
+                    Toast.makeText(getContext(), "Error al cargar eventos reservados", Toast.LENGTH_SHORT).show();
                 });
     }
 
-
-    // Mostrar los eventos en el RecyclerView
-    private void showInView(List<Event> eventos) {
-        rvEventosReservados.setVisibility(View.VISIBLE);
+    private void showInView(List<Event> eventosReservados) {
+        eventosAdapter = new Events_Adapter(eventosReservados, this);
         rvEventosReservados.setLayoutManager(new LinearLayoutManager(getContext()));
-        eventosAdapter = new Events_Adapter(eventos, this);
         rvEventosReservados.setAdapter(eventosAdapter);
-    }
-
-    // Método para editar datos personales (puedes agregar la lógica aquí)
-    private void editarDatosPersonales() {
-        // Lógica para editar datos personales
-        Toast.makeText(getContext(), "Editar datos personales", Toast.LENGTH_SHORT).show();
     }
 
     // Método para cambiar contraseña (puedes agregar la lógica aquí)

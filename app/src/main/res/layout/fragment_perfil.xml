@@ -5,62 +5,29 @@
     android:padding="16dp"
     android:background="#F2F2F2">
 
-    <FrameLayout
-        android:id="@+id/cardContainer"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mainCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="#B8BBAA"
+        app:cardUseCompatPadding="true">
 
-
-        <!-- Parte frontal del CardView -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardFront"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="#B8BBAA"
-            app:cardUseCompatPadding="true">
+            android:orientation="vertical">
 
-
-            <!-- Contenedor para pestañas -->
-            <LinearLayout
-                android:id="@+id/tabContainer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="start">
-
-                <!-- Pestaña de Mis Datos -->
-                <Button
-                    android:id="@+id/tabMisDatos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mis Datos"
-                    android:backgroundTint="@drawable/tab_active"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginRight="8dp"
-                    android:padding="8dp" />
-
-                <!-- Pestaña de Mis Eventos -->
-                <Button
-                    android:id="@+id/tabMisEventos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mis Eventos"
-                    android:backgroundTint="@drawable/tab_inactive"
-                    android:textColor="@color/white"
-                    android:padding="8dp" />
-            </LinearLayout>
-
-
+            <!-- Contenedor de pestañas y botón Salir -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:orientation="horizontal"
+                android:gravity="start|top"
+                android:padding="8dp">
 
-                <!-- Botón de salir -->
+                <!-- Botón de salir (parte compartida) -->
                 <ImageButton
                     android:id="@+id/salirButton"
                     android:layout_width="28dp"
@@ -69,135 +36,169 @@
                     android:background="@drawable/ic_salir"
                     android:contentDescription="Salir" />
 
-                <!-- Foto de perfil -->
-                <ImageView
-                    android:id="@+id/ivProfilePicture"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_perfil2"
-                    android:background="@drawable/round_image"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp" />
-
-                <!-- Nombre del usuario -->
-                <TextView
-                    android:id="@+id/tvFullName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre del usuario"
-                    android:textSize="18sp"
-                    android:textColor="#000000"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/round_text_view" />
-
-                <!-- Email -->
-                <TextView
-                    android:id="@+id/tvEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="email@example.com"
-                    android:textSize="14sp"
-                    android:textColor="#333333"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/round_text_view" />
-
-                <!-- Dirección -->
-                <TextView
-                    android:id="@+id/tvAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Calle Ejemplo, Ciudad"
-                    android:textSize="14sp"
-                    android:textColor="#333333"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/round_text_view" />
-
-                <!-- Ciudad -->
-                <TextView
-                    android:id="@+id/tvCity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ciudad"
-                    android:textSize="14sp"
-                    android:textColor="#333333"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/round_text_view" />
-
-                <!-- Botones -->
+                <!-- Contenedor de pestañas -->
                 <LinearLayout
+                    android:id="@+id/tabContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:padding="8dp">
+
+                    <Button
+                        android:id="@+id/tabMisDatos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mis Datos"
+                        android:backgroundTint="#6200EE"
+                        android:textColor="#FFFFFF"
+                        android:layout_marginEnd="8dp"
+                        android:padding="8dp" />
+
+                    <Button
+                        android:id="@+id/tabMisEventos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mis Eventos"
+                        android:backgroundTint="#BBBBBB"
+                        android:textColor="#FFFFFF"
+                        android:padding="8dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Contenedor para la parte delantera y trasera -->
+            <FrameLayout
+                android:id="@+id/cardContentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <!-- Parte delantera del CardView -->
+                <LinearLayout
+                    android:id="@+id/cardFront"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:layout_marginTop="16dp">
+                    android:visibility="visible">
 
-                    <Button
-                        android:id="@+id/btnEditPersonalInfo"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:backgroundTint="@color/black"
-                        android:drawablePadding="8dp"
-                        android:text="Editar"
-                        android:textColor="#FFFFFF" />
+                    <!-- Foto de perfil -->
+                    <ImageView
+                        android:id="@+id/ivProfilePicture"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_perfil2"
+                        android:background="@drawable/round_image"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp" />
 
-                    <Button
-                        android:id="@+id/btnChangePassword"
-                        android:layout_width="200dp"
+                    <!-- Nombre del usuario -->
+                    <TextView
+                        android:id="@+id/tvFullName"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:backgroundTint="@color/black"
-                        android:drawablePadding="8dp"
-                        android:text="Cambiar contraseña"
-                        android:textColor="#FFFFFF" />
+                        android:text="Nombre del usuario"
+                        android:textSize="18sp"
+                        android:textColor="#000000"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/round_text_view" />
 
-                    <Button
-                        android:id="@+id/btnLogOut"
-                        android:layout_width="200dp"
+                    <!-- Email -->
+                    <TextView
+                        android:id="@+id/tvEmail"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="email@example.com"
+                        android:textSize="14sp"
+                        android:textColor="#333333"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/round_text_view" />
+
+                    <!-- Dirección -->
+                    <TextView
+                        android:id="@+id/tvAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Calle Ejemplo, Ciudad"
+                        android:textSize="14sp"
+                        android:textColor="#333333"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/round_text_view" />
+
+                    <!-- Ciudad -->
+                    <TextView
+                        android:id="@+id/tvCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ciudad"
+                        android:textSize="14sp"
+                        android:textColor="#333333"
+                        android:gravity="center"
+                        android:textStyle="bold"
                         android:layout_marginBottom="16dp"
-                        android:backgroundTint="@color/black"
-                        android:text="Log Out"
-                        android:textColor="#FFFFFF" />
+                        android:background="@drawable/round_text_view" />
+
+                    <!-- Botones -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="16dp">
+
+                        <Button
+                            android:id="@+id/btnEditPersonalInfo"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:backgroundTint="@color/black"
+                            android:drawablePadding="8dp"
+                            android:text="Editar"
+                            android:textColor="#FFFFFF" />
+
+                        <Button
+                            android:id="@+id/btnChangePassword"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:backgroundTint="@color/black"
+                            android:drawablePadding="8dp"
+                            android:text="Cambiar contraseña"
+                            android:textColor="#FFFFFF" />
+
+                        <Button
+                            android:id="@+id/btnLogOut"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:backgroundTint="@color/black"
+                            android:text="Log Out"
+                            android:textColor="#FFFFFF" />
+                    </LinearLayout>
                 </LinearLayout>
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Parte trasera del CardView -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardBack"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:cardUseCompatPadding="true"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvEventosReservados"
+                <!-- Parte trasera del CardView -->
+                <LinearLayout
+                    android:id="@+id/cardBack"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </FrameLayout>
-
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvEventosReservados"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </ScrollView>

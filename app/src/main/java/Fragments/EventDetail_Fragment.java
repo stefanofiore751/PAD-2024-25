@@ -29,6 +29,7 @@ import java.util.Objects;
 import Modelos.User;
 import es.ucm.fdi.viva_tu_pueblo.R;
 import viva_tu_pueblo.LoginActivity;
+import viva_tu_pueblo.MainActivity;
 
 public class EventDetail_Fragment extends Fragment {
 
@@ -59,7 +60,11 @@ public class EventDetail_Fragment extends Fragment {
         eventDescription = view.findViewById(R.id.event_description);
         eventImage = view.findViewById(R.id.event_image);
         reserveButton = view.findViewById(R.id.reserve_button);
-        backArrow = view.findViewById(R.id.back_arrow);
+        //backArrow = view.findViewById(R.id.back_arrow);
+
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).setBackArrowVisibility(View.VISIBLE);
+        }
 
         // Inicializar Firestore
         db = FirebaseFirestore.getInstance();
@@ -70,8 +75,12 @@ public class EventDetail_Fragment extends Fragment {
             loadEventDetails(eventId);
         }
 
-        // Configurar botón de retroceso
-        backArrow.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+        /*backArrow.setOnClickListener(v -> {
+            // Llamar al método onBackPressed() de la actividad para retroceder
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).onBackPressed();  // Vuelve a la pantalla anterior
+            }
+        });*/
 
         return view;
     }

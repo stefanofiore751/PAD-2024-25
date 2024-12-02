@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private final Routes_Fragment routesFragment = new Routes_Fragment();
     private final Events_Fragment eventsFragment = new Events_Fragment();
 
-    private ImageButton btnGoToLogin, btnProfile;
+    private ImageButton btnGoToLogin, btnProfile, back_arrow;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 
@@ -39,15 +39,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inicializar FirebaseAuth
         firebaseAuth = FirebaseAuth.getInstance();
 
-        // Inicializar botones
         btnGoToLogin = findViewById(R.id.btnGoToLogin);
-        btnProfile = findViewById(R.id.btnProfile); // Asegúrate de que este botón esté definido en el XML
+        btnProfile = findViewById(R.id.btnProfile);
+        back_arrow = findViewById(R.id.back_arrow);
 
         // Configurar botones según estado de autenticación
         configureButtons();
+
+        // Configurar el listener del botón de retroceso para manejar el retroceso
+        back_arrow.setOnClickListener(v -> onBackPressed());
 
         // Configurar barra de navegación inferior
         BottomNavigationView navBarBottom = findViewById(R.id.bottomNavigationView);
@@ -128,5 +130,23 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.Frame_Layout_NavView, fragment);
         transaction.addToBackStack(null); // Navegación hacia atrás opcional
         transaction.commit();
+    }
+
+    // Método para cambiar la visibilidad del botón de retroceso
+    public void setBackArrowVisibility(int visibility) {
+        if (back_arrow != null) {
+            back_arrow.setVisibility(visibility);
+        }
+    }
+
+    // Método para manejar el retroceso
+    public void onBackPressed() {
+        // Verifica si hay fragmentos en el back stack
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            setBackArrowVisibility(View.GONE);
+            getSupportFragmentManager().popBackStack();  // Vuelve al fragment anterior
+        } else {
+            super.onBackPressed();  // Si no hay fragmentos, realiza la acción por defecto
+        }
     }
 }

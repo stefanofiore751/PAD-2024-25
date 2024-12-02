@@ -8,19 +8,6 @@
     android:background="@color/white"
     tools:context="Fragments.Events_Fragment">
 
-    <!--<TextView
-        android:id="@+id/textEventos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Eventos"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/unselected_color"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />-->
-
     <!-- SearchView -->
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
