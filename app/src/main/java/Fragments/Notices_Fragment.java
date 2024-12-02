@@ -1,9 +1,11 @@
 package Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +19,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import es.ucm.fdi.viva_tu_pueblo.R;
 
 import deffuncionalidadnoticias.PagerAdapter;
+import viva_tu_pueblo.MainActivity;
+import viva_tu_pueblo.NetworkUtils;
+
 public class Notices_Fragment extends Fragment {
 
     private TabLayout tabLayout;
@@ -25,6 +30,18 @@ public class Notices_Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Check for internet connection
+        if (!NetworkUtils.isInternetAvailable(requireContext())) {
+            // Show a message to the user
+            Toast.makeText(requireContext(), R.string.no_internet_message, Toast.LENGTH_SHORT).show();
+
+            // Redirect to the home fragment
+            Intent intent = new Intent(requireContext(), MainActivity.class);
+            intent.putExtra("navigate_to", R.id.nav_home);
+            startActivity(intent);
+            requireActivity().finish();
+            return null; // Return null since we're redirecting
+        }
         View view = inflater.inflate(R.layout.fragment_noticias, container, false);
 
         tabLayout = view.findViewById(R.id.tabLayout);

@@ -61,4 +61,5 @@
     <string name="Ciencia">Ciencia</string>
     <string name="Entretenimento">Entretenimento</string>
     <string name="Tecnologia">Tecnologia</string>
+    <string name="no_internet_message">no conexion a internet</string>
 </resources>

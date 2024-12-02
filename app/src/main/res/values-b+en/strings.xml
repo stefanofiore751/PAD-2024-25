@@ -57,4 +57,5 @@
     <string name="Ciencia">Science</string>
     <string name="Entretenimento">Entertainment</string>
     <string name="Tecnologia">Technology</string>
+    <string name="no_internet_message">no internet connection</string>
 </resources>
