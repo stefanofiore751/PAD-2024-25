@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    
+
 
     private void configureButtons() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();

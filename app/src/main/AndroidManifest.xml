@@ -15,7 +15,8 @@
 
         <activity
             android:name="viva_tu_pueblo.MainActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:configChanges="orientation|screenSize"/>
 
         <activity android:name="viva_tu_pueblo.LoginActivity"
             android:exported="true">
