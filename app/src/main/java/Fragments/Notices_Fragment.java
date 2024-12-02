@@ -36,11 +36,9 @@ public class Notices_Fragment extends Fragment {
     }
 
     private void setupViewPager() {
-        // Usa il PagerAdapter adattato
         PagerAdapter pagerAdapter = new PagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
 
-        // Collega il TabLayout con il ViewPager2
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
                 case 0:

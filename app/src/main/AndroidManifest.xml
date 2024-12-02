@@ -13,18 +13,17 @@
         android:theme="@style/Theme.Viva_Tu_Pueblo"
         tools:targetApi="31">
 
-        <activity
-            android:name="viva_tu_pueblo.MainActivity"
-            android:exported="true"
-            android:configChanges="orientation|screenSize"/>
-
-        <activity android:name="viva_tu_pueblo.LoginActivity"
+        <activity android:name="viva_tu_pueblo.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name="viva_tu_pueblo.LoginActivity"
+            android:exported="true">
         </activity>
         <!--<activity android:name="viva_tu_pueblo.LoginActivity" />-->
         <activity android:name="viva_tu_pueblo.SignUpActivity" />
