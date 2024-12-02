@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context="viva_tu_pueblo.SignUpActivity">
+
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/logo_image"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:background="@drawable/round_image"
+        android:contentDescription="@string/logo_image"
+        android:scaleType="centerCrop"
+        android:clipToOutline="true"
+        android:src="@drawable/logo_improvisado"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVerticalDivider" />
+
+    <!-- Full Name Input -->
+    <EditText
+        android:id="@+id/full_name_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/full_name"
+        android:inputType="textPersonName"
+        android:padding="8dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guidelineVerticalDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="8dp" />
+
+    <!-- Email Input -->
+    <EditText
+        android:id="@+id/email_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:padding="8dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/full_name_field"
+        app:layout_constraintStart_toStartOf="@id/guidelineVerticalDivider"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Password Input -->
+    <EditText
+        android:id="@+id/password_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/email_field"
+        app:layout_constraintStart_toStartOf="@id/guidelineVerticalDivider"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Address Input -->
+    <EditText
+        android:id="@+id/address_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/address"
+        android:inputType="textPostalAddress"
+        android:padding="8dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/password_field"
+        app:layout_constraintStart_toStartOf="@id/guidelineVerticalDivider"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- City Input -->
+    <EditText
+        android:id="@+id/city_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/city"
+        android:inputType="text"
+        android:padding="8dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/address_field"
+        app:layout_constraintStart_toStartOf="@id/guidelineVerticalDivider"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Sign Up Button -->
+    <Button
+        android:id="@+id/signup_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/sign_up"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/city_field"
+        app:layout_constraintStart_toStartOf="@id/guidelineVerticalDivider"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Already Have Account -->
+    <TextView
+        android:id="@+id/login_redirect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/already_have_account"
+        android:clickable="true"
+        android:focusable="true"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/signup_button"
+        app:layout_constraintStart_toStartOf="@id/guidelineVerticalDivider"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Vertical Divider -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVerticalDivider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+</androidx.constraintlayout.widget.ConstraintLayout>

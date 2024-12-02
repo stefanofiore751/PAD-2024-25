@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context="viva_tu_pueblo.LoginActivity">
+
+    <!-- Imagen del logo -->
+    <ImageView
+        android:id="@+id/logo_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/round_image"
+        android:contentDescription="@string/logo"
+        android:scaleType="centerCrop"
+        android:clipToOutline="true"
+        android:src="@drawable/logo_improvisado"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineImageAndText"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndLogin"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartLogin"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopLogin" />
+
+    <!-- Campo de usuario -->
+    <EditText
+        android:id="@+id/username_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="Email"
+        android:hint="@string/email"
+        android:textColorHint="@color/white"
+        android:padding="12dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/logo_image"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartLogin"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndLogin" />
+
+    <!-- Campo de contraseña -->
+    <EditText
+        android:id="@+id/password_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/password"
+        android:hint="@string/password"
+        android:textColorHint="@color/white"
+        android:padding="12dp"
+        android:inputType="textPassword"
+        android:backgroundTint="@color/white"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/username_field"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartLogin"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndLogin" />
+
+    <!-- Botón de inicio de sesión -->
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/iniciar_sesion"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndLogin"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartLogin"
+        app:layout_constraintTop_toBottomOf="@id/password_field" />
+
+    <!-- Botón de continuar como invitado -->
+    <Button
+        android:id="@+id/guest_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/continuar_como_invitado"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndLogin"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartLogin"
+        app:layout_constraintTop_toBottomOf="@id/login_button" />
+
+    <!-- Texto adicional -->
+
+    <!-- Guías -->
+
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:text="@string/no_tienes_pueblo"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndLogin"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartLogin"
+        app:layout_constraintTop_toTopOf="@+id/guidelineBottomLogin" />
+
+    <TextView
+        android:height="48dp"
+        android:id="@+id/tvSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/nete_a_uno"
+        android:textColor="@color/white"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndLogin"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartLogin"
+        app:layout_constraintTop_toTopOf="@+id/textViewDescription" />
+
+    <TextView
+        android:height="48dp"
+        android:id="@+id/tvForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/has_olvidado_tu_contrase_a"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndLogin"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartLogin"
+        app:layout_constraintTop_toTopOf="@+id/guidelineBottomLogin" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottomLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineImageAndText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="366dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTopLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEndLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.90" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStartLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.10" />
+</androidx.constraintlayout.widget.ConstraintLayout>
