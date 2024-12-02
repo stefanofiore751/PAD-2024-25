@@ -28,6 +28,7 @@
         </activity>
         <!--<activity android:name="viva_tu_pueblo.LoginActivity" />-->
         <activity android:name="viva_tu_pueblo.SignUpActivity" />
+        <activity android:name="deffuncionalidadnoticias.webView" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="viva_tu_pueblo.fileprovider"
