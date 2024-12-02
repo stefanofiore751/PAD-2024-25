@@ -43,13 +43,15 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-
         btnGoToLogin = findViewById(R.id.btnGoToLogin);
         btnProfile = findViewById(R.id.btnProfile);
         back_arrow = findViewById(R.id.back_arrow);
 
         // Configurar botones según estado de autenticación
         configureButtons();
+
+        // Configurar el listener del botón de retroceso para manejar el retroceso
+        back_arrow.setOnClickListener(v -> onBackPressed());
 
         // Configurar barra de navegación inferior
         BottomNavigationView navBarBottom = findViewById(R.id.bottomNavigationView);
@@ -162,6 +164,16 @@ public class MainActivity extends AppCompatActivity {
             navBarBottom.setSelectedItemId(R.id.nav_routes);
         } else if (fragment instanceof Events_Fragment) {
             navBarBottom.setSelectedItemId(R.id.nav_events);
+        }
+    }
+
+    public void onBackPressed() {
+        // Verifica si hay fragmentos en el back stack
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            setBackArrowVisibility(View.GONE);
+            getSupportFragmentManager().popBackStack();  // Vuelve al fragment anterior
+        } else {
+            super.onBackPressed();  // Si no hay fragmentos, realiza la acción por defecto
         }
     }
 
